@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FieldSupport.Domain
+namespace FieldSupport.Domain.Maintenance
 {
-    public class Ticket : BaseEntity
+    public class Engineer : BaseEntity
     {
+        public EngineerAvailStatus AvailStatus { get; set; }
     }
 }

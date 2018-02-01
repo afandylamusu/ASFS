@@ -1,7 +1,7 @@
-﻿using System.Data.Entity;
+﻿using Astra.Infrastructure.Audit;
 using Astra.Infrastructure.Data;
 using FieldSupport.Api.Infrastructure.Mappings;
-using FieldSupport.Domain;
+using System.Data.Entity;
 
 namespace FieldSupport.Api.Infrastructure
 {
@@ -26,6 +26,8 @@ namespace FieldSupport.Api.Infrastructure
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new TicketMap());
+
+            modelBuilder.SetAuditEntityConfig();
         }
     }
 }

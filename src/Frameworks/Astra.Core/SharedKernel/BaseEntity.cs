@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Astra.Core.SharedKernel
 {
@@ -9,6 +10,7 @@ namespace Astra.Core.SharedKernel
         
         public bool Active { get; set; }
 
+        [JsonIgnore]
         public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
     }
 

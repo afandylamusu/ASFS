@@ -1,17 +1,15 @@
-﻿using Astra.Core.Interfaces;
-using Astra.Infrastructure;
-using Astra.Infrastructure.Data;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.WebApi;
-using FieldSupport.Api.Facades;
 using FieldSupport.Api.Infrastructure;
+using FieldSupport.Api.Services;
 using Microsoft.Owin;
 using Owin;
 using Swashbuckle.Application;
 using System;
-using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.OData.Extensions;
 
 [assembly: OwinStartup(typeof(FieldSupport.Api.Startup))]
 
@@ -32,20 +30,12 @@ namespace FieldSupport.Api
 
             var builder = new ContainerBuilder();
 
-
             // Run other optional steps, like registering filters,
-            RegisterServices(builder);
 
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder.RegisterType<FieldSupportContext>().As<DbContext>().InstancePerLifetimeScope();
-
-            builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-
-            //builder.RegisterType<PluginFinder>().As<IPluginFinder>().InstancePerLifetimeScope();
-
-            builder.RegisterType<TicketFacade>().As<ITicketFacade>().InstancePerLifetimeScope();
+            RegisterServices(builder);
 
             var container = builder.Build();
 
@@ -57,10 +47,28 @@ namespace FieldSupport.Api
             app.UseWebApi(webApiConfiguration);
 
             app.MapSignalR();
+
+            MigrateDatabse(container);
+        }
+
+        private void MigrateDatabse(IContainer container)
+        {
+            var context = container.Resolve<FieldSupportContext>();
+            if (!context.Database.Exists())
+            {
+                throw new Exception("Database migration failed because the target database does not exist. Ensure the database was initialized and seeded with the 'InstallDatabaseInitializer'.");
+            }
+
+            var migrateConfig = new Infrastructure.Migrations.Configuration();
+            var migrate = new DbMigrator(migrateConfig);
+            migrate.Update();
         }
 
         private void RegisterServices(ContainerBuilder builder)
         {
+            builder.RegisterType<FieldSupportContext>().InstancePerLifetimeScope();
+
+            builder.RegisterType<TicketService>().As<ITicketService>().InstancePerLifetimeScope();
 
         }
 
@@ -75,12 +83,16 @@ namespace FieldSupport.Api
             // Register the Autofac middleware FIRST, then the Autofac Web API middleware,
             // and finally the standard Web API middleware.
 
+            config.AddODataQueryFilter();
 
             config.EnableSwagger(c =>
             {
-                c.SingleApiVersion("v1", "WebAPI");
+                c.SingleApiVersion("v1", "Astra Field Support API");
                 c.IncludeXmlComments(GetXmlCommentsPath());
             }).EnableSwaggerUi();
+
+            config.MapHttpAttributeRoutes();
+
 
             config.Routes.MapHttpRoute(
                 "DefaultApi",

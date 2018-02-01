@@ -1,6 +1,6 @@
 ﻿using Astra.Core.Interfaces;
 
-namespace FieldSupport.Api.Facades
+namespace FieldSupport.Api.Services
 {
     /// <summary>
     /// 

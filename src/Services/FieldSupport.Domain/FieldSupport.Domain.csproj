@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,14 +44,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maintenance\TicketImage.cs" />
+    <Compile Include="Media\Image.cs" />
+    <Compile Include="Setting\Application.cs" />
+    <Compile Include="Contact\ContactInfo.cs" />
+    <Compile Include="Department\DepartmentInfo.cs" />
+    <Compile Include="Department\Employee.cs" />
+    <Compile Include="Location\Address.cs" />
+    <Compile Include="Maintenance\ENUMS.cs" />
+    <Compile Include="Maintenance\Customer.cs" />
+    <Compile Include="Maintenance\Engineer.cs" />
+    <Compile Include="Maintenance\EngineerLocation.cs" />
+    <Compile Include="Maintenance\MaintenanceArea.cs" />
+    <Compile Include="Maintenance\MaintenanceAreaDetail.cs" />
+    <Compile Include="Maintenance\MaintenanceGroup.cs" />
+    <Compile Include="Maintenance\MaintenanceGroupArea.cs" />
+    <Compile Include="Maintenance\MaintenanceGroupEngineer.cs" />
+    <Compile Include="Maintenance\TicketTask.cs" />
+    <Compile Include="Maintenance\TicketReview.cs" />
+    <Compile Include="Maintenance\TicketType.cs" />
+    <Compile Include="Notification\Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ticket.cs" />
+    <Compile Include="Maintenance\Ticket.cs" />
+    <Compile Include="Setting\Menu.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Frameworks\Astra.Core\Astra.Core.csproj">
       <Project>{84416DC1-7A8D-48F1-9617-96BCB58A671E}</Project>
       <Name>Astra.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

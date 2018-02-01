@@ -1,9 +1,5 @@
-﻿using FieldSupport.Domain;
-using System;
-using System.Collections.Generic;
+﻿using FieldSupport.Domain.Maintenance;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Web;
 
 namespace FieldSupport.Api.Infrastructure.Mappings
 {
@@ -19,6 +15,11 @@ namespace FieldSupport.Api.Infrastructure.Mappings
         {
             this.ToTable("Tickets");
             this.HasKey(p => p.Id);
+
+            this.Property(p => p.Title).HasMaxLength(225).IsRequired();
+            this.Property(p => p.Description).HasMaxLength(1000).IsRequired();
+
+            this.Property(p => p.Code).HasMaxLength(20).IsRequired();
             
         }
     }

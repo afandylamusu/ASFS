@@ -2,19 +2,28 @@
 using Astra.Core.SharedKernel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Astra.Core.Services
+namespace Astra.Infrastructure.Data
 {
     public abstract class BaseFacade<TEntity, TSearchContext> : IBaseFacade<TEntity, TSearchContext>
         where TEntity : BaseEntity
     where TSearchContext : ISearchContext
     {
-        protected readonly IRepository<TEntity> _repository;
+        private readonly DbContext _context;
+        private readonly DbSet<TEntity> entitySet;
 
-        public BaseFacade(IRepository<TEntity> repository) { _repository = repository; }
+        protected DbSet<TEntity> EntitySet => entitySet;
+
+        public IQueryable<TEntity> Queryable => EntitySet.AsQueryable();
+
+        public BaseFacade(DbContext context) {
+            _context = context;
+            entitySet = _context.Set<TEntity>();
+        }
 
         public virtual async Task Create(TEntity record, Action<TEntity> before = null, Action<TEntity> after = null)
         {
@@ -26,7 +35,8 @@ namespace Astra.Core.Services
                 auditRec._CreatedUtc = DateTime.UtcNow;
                 auditRec._LastModifiedUtc = DateTime.Parse("2000-01-01");
             }
-            await _repository.InsertAsync(record);
+            EntitySet.Add(record);
+            await _context.SaveChangesAsync();
             after?.Invoke(record);
 
         }
@@ -39,10 +49,12 @@ namespace Astra.Core.Services
                 var softDelRec = record as ISoftDelete;
                 softDelRec._DeletedUtc = DateTime.UtcNow;
                 softDelRec._IsDeleted = true;
-                await _repository.UpdateAsync(record);
+                //EntitySet.UpdateAsync(record);
             }
             else
-                await _repository.DeleteAsync(record);
+                EntitySet.Remove(record);
+
+            await _context.SaveChangesAsync();
             after?.Invoke(record);
         }
 
@@ -101,13 +113,14 @@ namespace Astra.Core.Services
                 var auditRec = record as IAuditTrail;
                 auditRec._LastModifiedUtc = DateTime.UtcNow;
             }
-            await _repository.UpdateAsync(record);
+            
+            await _context.SaveChangesAsync();
             after?.Invoke(record);
         }
 
         public virtual async Task<IEnumerable<TEntity>> Search(TSearchContext search)
         {
-            return await Task.Run(() => SearchQuery(search).AsEnumerable());
+            return await Task.FromResult(SearchQuery(search).ToList());
         }
 
         public virtual IPagedList<TEntity> PageableSearch(TSearchContext search)
@@ -117,7 +130,7 @@ namespace Astra.Core.Services
 
         public abstract IQueryable<TEntity> SearchQuery(TSearchContext search);
 
-        public virtual TEntity Find(object key) => _repository.GetById(key);
+        public virtual TEntity Find(object key) => EntitySet.Find(key);
 
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Astra.Core.Services
+namespace Astra.Core.Interfaces
 {
     public interface IBaseFacade<TEntity, TSearchContext>
     {
@@ -16,5 +16,6 @@ namespace Astra.Core.Services
         Task<IEnumerable<TEntity>> Search(TSearchContext search);
         IQueryable<TEntity> SearchQuery(TSearchContext search);
         TEntity Find(object key);
+        IQueryable<TEntity> Queryable { get; }
     }
 }

@@ -1,0 +1,57 @@
+﻿{
+  "runtime": "Default",
+  "swaggerGenerator": {
+    "fromSwagger": {
+      "json": "{\r\n  \"swagger\": \"2.0\",\r\n  \"info\": {\r\n    \"version\": \"v1\",\r\n    \"title\": \"WebAPI\"\r\n  },\r\n  \"host\": \"localhost:16769\",\r\n  \"schemes\": [\r\n    \"http\"\r\n  ],\r\n  \"paths\": {\r\n    \"/api/Tickets\": {\r\n      \"get\": {\r\n        \"tags\": [\r\n          \"Tickets\"\r\n        ],\r\n        \"operationId\": \"Tickets_Get\",\r\n        \"consumes\": [],\r\n        \"produces\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"query.size\",\r\n            \"in\": \"query\",\r\n            \"description\": \"\",\r\n            \"required\": false,\r\n            \"type\": \"integer\",\r\n            \"format\": \"int32\"\r\n          },\r\n          {\r\n            \"name\": \"query.index\",\r\n            \"in\": \"query\",\r\n            \"description\": \"\",\r\n            \"required\": false,\r\n            \"type\": \"integer\",\r\n            \"format\": \"int32\"\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"OK\",\r\n            \"schema\": {\r\n              \"type\": \"object\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"post\": {\r\n        \"tags\": [\r\n          \"Tickets\"\r\n        ],\r\n        \"operationId\": \"Tickets_Post\",\r\n        \"consumes\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\",\r\n          \"application/x-www-form-urlencoded\"\r\n        ],\r\n        \"produces\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"value\",\r\n            \"in\": \"body\",\r\n            \"required\": true,\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/Ticket\"\r\n            }\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"OK\",\r\n            \"schema\": {\r\n              \"type\": \"object\"\r\n            }\r\n          }\r\n        }\r\n      }\r\n    },\r\n    \"/api/Tickets/{id}\": {\r\n      \"get\": {\r\n        \"tags\": [\r\n          \"Tickets\"\r\n        ],\r\n        \"operationId\": \"Tickets_Get\",\r\n        \"consumes\": [],\r\n        \"produces\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"type\": \"integer\",\r\n            \"format\": \"int32\"\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"OK\",\r\n            \"schema\": {\r\n              \"type\": \"object\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"put\": {\r\n        \"tags\": [\r\n          \"Tickets\"\r\n        ],\r\n        \"operationId\": \"Tickets_Put\",\r\n        \"consumes\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\",\r\n          \"application/x-www-form-urlencoded\"\r\n        ],\r\n        \"produces\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"type\": \"integer\",\r\n            \"format\": \"int32\"\r\n          },\r\n          {\r\n            \"name\": \"value\",\r\n            \"in\": \"body\",\r\n            \"required\": true,\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/Ticket\"\r\n            }\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"OK\",\r\n            \"schema\": {\r\n              \"type\": \"object\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"delete\": {\r\n        \"tags\": [\r\n          \"Tickets\"\r\n        ],\r\n        \"operationId\": \"Tickets_Delete\",\r\n        \"consumes\": [],\r\n        \"produces\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"type\": \"integer\",\r\n            \"format\": \"int32\"\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"OK\",\r\n            \"schema\": {\r\n              \"type\": \"object\"\r\n            }\r\n          }\r\n        }\r\n      },\r\n      \"patch\": {\r\n        \"tags\": [\r\n          \"Tickets\"\r\n        ],\r\n        \"operationId\": \"Tickets_Patch\",\r\n        \"consumes\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\",\r\n          \"application/x-www-form-urlencoded\"\r\n        ],\r\n        \"produces\": [\r\n          \"application/json\",\r\n          \"text/json\",\r\n          \"application/xml\",\r\n          \"text/xml\"\r\n        ],\r\n        \"parameters\": [\r\n          {\r\n            \"name\": \"id\",\r\n            \"in\": \"path\",\r\n            \"required\": true,\r\n            \"type\": \"integer\",\r\n            \"format\": \"int32\"\r\n          },\r\n          {\r\n            \"name\": \"value\",\r\n            \"in\": \"body\",\r\n            \"required\": true,\r\n            \"schema\": {\r\n              \"$ref\": \"#/definitions/JsonPatchDocument[Ticket]\"\r\n            }\r\n          }\r\n        ],\r\n        \"responses\": {\r\n          \"200\": {\r\n            \"description\": \"OK\",\r\n            \"schema\": {\r\n              \"type\": \"object\"\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"definitions\": {\r\n    \"TicketSearchContext\": {\r\n      \"description\": \"\",\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"Size\": {\r\n          \"format\": \"int32\",\r\n          \"description\": \"\",\r\n          \"type\": \"integer\"\r\n        },\r\n        \"Index\": {\r\n          \"format\": \"int32\",\r\n          \"description\": \"\",\r\n          \"type\": \"integer\"\r\n        }\r\n      }\r\n    },\r\n    \"Ticket\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"Events\": {\r\n          \"type\": \"array\",\r\n          \"items\": {\r\n            \"$ref\": \"#/definitions/BaseDomainEvent\"\r\n          }\r\n        },\r\n        \"Id\": {\r\n          \"format\": \"int32\",\r\n          \"type\": \"integer\"\r\n        },\r\n        \"Active\": {\r\n          \"type\": \"boolean\"\r\n        }\r\n      }\r\n    },\r\n    \"BaseDomainEvent\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"DateOccurred\": {\r\n          \"format\": \"date-time\",\r\n          \"type\": \"string\",\r\n          \"readOnly\": true\r\n        }\r\n      }\r\n    },\r\n    \"JsonPatchDocument[Ticket]\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"Operations\": {\r\n          \"type\": \"array\",\r\n          \"items\": {\r\n            \"$ref\": \"#/definitions/Operation[Ticket]\"\r\n          },\r\n          \"readOnly\": true\r\n        }\r\n      }\r\n    },\r\n    \"Operation[Ticket]\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"value\": {\r\n          \"type\": \"object\"\r\n        },\r\n        \"path\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"op\": {\r\n          \"type\": \"string\"\r\n        },\r\n        \"from\": {\r\n          \"type\": \"string\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}",
+      "url": "http://localhost:16769/swagger/docs/v1",
+      "output": null
+    }
+  },
+  "codeGenerators": {
+    "swaggerToCSharpClient": {
+      "generateClientClasses": true,
+      "generateClientInterfaces": false,
+      "generateDtoTypes": true,
+      "injectHttpClient": true,
+      "disposeHttpClient": true,
+      "generateExceptionClasses": true,
+      "exceptionClass": "SwaggerException",
+      "wrapDtoExceptions": true,
+      "useHttpClientCreationMethod": false,
+      "httpClientType": "System.Net.Http.HttpClient",
+      "useHttpRequestMessageCreationMethod": false,
+      "useBaseUrl": true,
+      "generateBaseUrlProperty": true,
+      "generateSyncMethods": false,
+      "clientClassAccessModifier": "public",
+      "typeAccessModifier": "public",
+      "generateContractsOutput": false,
+      "parameterDateTimeFormat": "s",
+      "generateUpdateJsonSerializerSettingsMethod": true,
+      "serializeTypeInformation": false,
+      "queryNullValue": "",
+      "className": "{controller}Client",
+      "namespace": "DataAccess.FieldSupport.Client",
+      "generateOptionalParameters": false,
+      "requiredPropertiesMustBeDefined": true,
+      "dateType": "System.DateTime",
+      "dateTimeType": "System.DateTime",
+      "timeType": "System.TimeSpan",
+      "timeSpanType": "System.TimeSpan",
+      "arrayType": "System.Collections.ObjectModel.ObservableCollection",
+      "dictionaryType": "System.Collections.Generic.Dictionary",
+      "classStyle": "Inpc",
+      "operationGenerationMode": "MultipleClientsFromOperationId",
+      "generateDefaultValues": true,
+      "generateDataAnnotations": true,
+      "excludedTypeNames": [],
+      "wrapResponses": false,
+      "generateResponseClasses": true,
+      "responseClass": "SwaggerResponse",
+      "handleReferences": false,
+      "generateImmutableArrayProperties": false,
+      "generateImmutableDictionaryProperties": false,
+      "output": null
+    }
+  }
+}
