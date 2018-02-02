@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Astra.Core.SharedKernel;
 
 namespace FieldSupport.Domain.Maintenance
 {
-    public class MaintenanceAreaDetail
+    public class MaintenanceAreaDetail : BaseEntity
     {
+        public string Name { get; set; }
+
+        public virtual MaintenanceArea Area { get; set; }
+        public int Area_Id { get; set; }
     }
 }

@@ -125,7 +125,7 @@ namespace Astra.Infrastructure.Data
 
         public virtual IPagedList<TEntity> PageableSearch(TSearchContext search)
         {
-            return new PagedList<TEntity>(SearchQuery(search), search.Index ?? 0, search.Size ?? 25);
+            return new PagedList<TEntity>(SearchQuery(search), search.Skip ?? 0, search.Top ?? 25);
         }
 
         public abstract IQueryable<TEntity> SearchQuery(TSearchContext search);

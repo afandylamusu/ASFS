@@ -116,6 +116,7 @@
     <Compile Include="Audit\EntityAudit.cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Data\BaseFacade.cs" />
+    <Compile Include="Data\DbContextExtension.cs" />
     <Compile Include="Data\EfRepository.cs" />
     <Compile Include="Data\MainDbContext.cs" />
     <Compile Include="Data\UnitOfWork.cs" />

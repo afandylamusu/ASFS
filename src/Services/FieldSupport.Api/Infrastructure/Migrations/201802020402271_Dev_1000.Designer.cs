@@ -7,13 +7,13 @@ namespace FieldSupport.Api.Infrastructure.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Update01 : IMigrationMetadata
+    public sealed partial class Dev_1000 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Update01));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Dev_1000));
         
         string IMigrationMetadata.Id
         {
-            get { return "201801190851069_Update01"; }
+            get { return "201802020402271_Dev_1000"; }
         }
         
         string IMigrationMetadata.Source

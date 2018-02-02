@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Astra.Core.SharedKernel;
 
 namespace FieldSupport.Domain.Location
 {
-    public class Address
+    public class Address : BaseEntity
     {
+        public string Name { get; set; }
     }
 }

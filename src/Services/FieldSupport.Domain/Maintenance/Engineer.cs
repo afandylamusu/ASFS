@@ -10,5 +10,7 @@ namespace FieldSupport.Domain.Maintenance
     public class Engineer : BaseEntity
     {
         public EngineerAvailStatus AvailStatus { get; set; }
+
+        public int Employee_Id { get; set; }
     }
 }

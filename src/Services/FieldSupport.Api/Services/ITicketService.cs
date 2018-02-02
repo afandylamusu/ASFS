@@ -31,7 +31,7 @@ namespace FieldSupport.Api.Services
         /// <returns></returns>
         public override IQueryable<Ticket> SearchQuery(TicketSearchContext search)
         {
-            return EntitySet.Where(q => true);
+            return EntitySet.Where(q => true).OrderBy(q => q.Code);
         }
     }
 }

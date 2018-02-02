@@ -31,10 +31,10 @@ namespace Astra.Infrastructure
         }
 
         // GET: api/values
-        [EnableQuery]
+        [EnableQuery(PageSize = 100)]
         [HttpGet]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public PageResult<TEntity> Gets([FromUri]TSearchContext query, ODataQueryOptions opts)
+        public PageResult<TEntity> Gets(ODataQueryOptions opts, [FromUri] TSearchContext search)
         {
             var settings = new ODataValidationSettings()
             {
@@ -45,7 +45,7 @@ namespace Astra.Infrastructure
 
             opts.Validate(settings);
 
-            var results = opts.ApplyTo(Service.Value.Search(query).Result.AsQueryable());
+            var results = opts.ApplyTo(Service.Value.SearchQuery(search));
 
             return new PageResult<TEntity>(
                 results as IEnumerable<TEntity>,

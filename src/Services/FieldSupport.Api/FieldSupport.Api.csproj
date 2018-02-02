@@ -35,6 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\FieldSupport.Api.xml</DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -141,7 +142,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -154,26 +157,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\FilesController.cs" />
-    <Compile Include="Infrastructure\Migrations\201802011012014_UpdateTicket_02.cs" />
-    <Compile Include="Infrastructure\Migrations\201802011012014_UpdateTicket_02.Designer.cs">
-      <DependentUpon>201802011012014_UpdateTicket_02.cs</DependentUpon>
+    <Compile Include="Infrastructure\Mappings\Location\AddressMapping.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\CustomerMapping.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\EngineerMapping.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\MaintenanceAreaDetailMapping.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\MaintenanceAreaMapping.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\MaintenanceGroupMapping.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\TicketTypeMapping.cs" />
+    <Compile Include="Infrastructure\Migrations\201802020402271_Dev_1000.cs" />
+    <Compile Include="Infrastructure\Migrations\201802020402271_Dev_1000.Designer.cs">
+      <DependentUpon>201802020402271_Dev_1000.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\ITicketService.cs" />
     <Compile Include="Services\TicketSearchContext.cs" />
-    <Compile Include="Infrastructure\Migrations\201801190844373_Initial.cs" />
-    <Compile Include="Infrastructure\Migrations\201801190844373_Initial.Designer.cs">
-      <DependentUpon>201801190844373_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\Migrations\201801190851069_Update01.cs" />
-    <Compile Include="Infrastructure\Migrations\201801190851069_Update01.Designer.cs">
-      <DependentUpon>201801190851069_Update01.cs</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\Migrations\Configuration.cs" />
     <Compile Include="Tickers\Notification.cs" />
     <Compile Include="Controllers\NotificationHub.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Infrastructure\FieldSupportContext.cs" />
-    <Compile Include="Infrastructure\Mappings\TicketMap.cs" />
+    <Compile Include="Infrastructure\Mappings\Maintenance\TicketMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Tickers\NotificationTicker.cs" />
@@ -193,18 +195,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Infrastructure\Migrations\201801190844373_Initial.resx">
-      <DependentUpon>201801190844373_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Infrastructure\Migrations\201801190851069_Update01.resx">
-      <DependentUpon>201801190851069_Update01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Infrastructure\Migrations\201802011012014_UpdateTicket_02.resx">
-      <DependentUpon>201802011012014_UpdateTicket_02.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Userfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Userfiles\" />
+    <EmbeddedResource Include="Infrastructure\Migrations\201802020402271_Dev_1000.resx">
+      <DependentUpon>201802020402271_Dev_1000.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

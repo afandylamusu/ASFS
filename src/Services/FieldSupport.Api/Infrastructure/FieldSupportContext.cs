@@ -1,7 +1,11 @@
 ﻿using Astra.Infrastructure.Audit;
 using Astra.Infrastructure.Data;
 using FieldSupport.Api.Infrastructure.Mappings;
+using System;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using System.Reflection;
 
 namespace FieldSupport.Api.Infrastructure
 {
@@ -25,7 +29,7 @@ namespace FieldSupport.Api.Infrastructure
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new TicketMap());
+            modelBuilder.ApplyEntityTypeConfiguration(Assembly.GetExecutingAssembly());
 
             modelBuilder.SetAuditEntityConfig();
         }

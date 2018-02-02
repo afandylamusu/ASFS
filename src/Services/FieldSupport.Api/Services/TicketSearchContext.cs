@@ -5,16 +5,8 @@ namespace FieldSupport.Api.Services
     /// <summary>
     /// 
     /// </summary>
-    public class TicketSearchContext : ISearchContext
+    public class TicketSearchContext : SearchContext
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? Size { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int? Index { get; set; }
     }
 }

@@ -31,12 +31,12 @@ namespace FieldSupport.Domain.Maintenance
         /// <summary>
         /// Which indicates whether the tickets have been readed by Engineer or not
         /// </summary>
-        public bool IsAssignToReaded { get; set; }
+        //public bool IsAssignToReaded { get; set; }
 
         /// <summary>
         /// Which indicates whether the tickets have been finished by Engineer or not
         /// </summary>
-        public bool IsAssignToFinished { get; set; }
+        //public bool IsAssignToFinished { get; set; }
 
         /// <summary>
         /// State of ticket
@@ -52,7 +52,7 @@ namespace FieldSupport.Domain.Maintenance
         /// Engineer or Employee who responsible to handle the ticket
         /// </summary>
         public virtual Engineer AssignTo { get; set; }
-        public int AssignTo_Id { get; set; }
+        public int? AssignTo_Id { get; set; }
 
         /// <summary>
         /// 
@@ -70,19 +70,19 @@ namespace FieldSupport.Domain.Maintenance
         /// 
         /// </summary>
         public virtual MaintenanceArea Area { get; set; }
-        public int MaintenanceArea_Id { get; set; }
+        public int Area_Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public virtual MaintenanceAreaDetail AreaDetail { get; set; }
-        public int MaintenanceAreaDetail_Id { get; set; }
+        public int AreaDetail_Id { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public virtual MaintenanceGroup Group { get; set; }
-        public int MaintenanceGroup_Id { get; set; } 
+        public int Group_Id { get; set; } 
         #endregion
 
         #region Audit
