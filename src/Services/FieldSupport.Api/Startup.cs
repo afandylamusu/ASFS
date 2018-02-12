@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using Astra.Infrastructure.Audit;
+using Astra.Infrastructure.AuditTrail;
+using Autofac;
 using Autofac.Integration.WebApi;
 using FieldSupport.Api.Infrastructure;
 using FieldSupport.Api.Services;
@@ -66,9 +68,21 @@ namespace FieldSupport.Api
 
         private void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<FieldSupportContext>().InstancePerLifetimeScope();
+            builder.AddAuditTrail<AuditEntityLog>(c =>
+            {
+                c.UseSettings(System.Configuration.ConfigurationManager.AppSettings["ElasticServiceUrl"], true, 0, "astra-fieldsupport-auditlogs");
+                c.EnableCustomIndex(true);
+            });
+
+            builder.Register(c =>
+            {
+                var context = new FieldSupportContext(c.Resolve<IAuditTrailProvider<AuditEntityLog>>());
+                return context;
+            }).InstancePerLifetimeScope();
 
             builder.RegisterType<TicketService>().As<ITicketService>().InstancePerLifetimeScope();
+            builder.RegisterType<EngineerService>().As<IEngineerService>().InstancePerLifetimeScope();
+
 
         }
 
@@ -98,6 +112,12 @@ namespace FieldSupport.Api
                 "DefaultApi",
                 "api/{controller}/{id}",
                 new { id = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+                "MaintenanceAreaRoute",
+                "api/maintenance/areas",
+                new { id = RouteParameter.Optional, controller = "MaitenanceAreas" });
+
             return config;
         }
 

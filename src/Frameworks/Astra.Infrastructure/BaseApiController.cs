@@ -15,7 +15,7 @@ using System.Net.Http;
 
 namespace Astra.Infrastructure
 {
-    public abstract class BaseApiController<TService, TEntity, TKey, TSearchContext> : ApiController
+    public abstract class BaseApiController<TService, TEntity, TSearchContext> : ApiController
     where TService : IBaseFacade<TEntity, TSearchContext>
     where TEntity : BaseEntity, new()
     {
@@ -31,11 +31,16 @@ namespace Astra.Infrastructure
         }
 
         // GET: api/values
-        [EnableQuery(PageSize = 100)]
         [HttpGet]
         [SwaggerResponse(HttpStatusCode.OK)]
-        public PageResult<TEntity> Gets(ODataQueryOptions opts, [FromUri] TSearchContext search)
+        public virtual PageResult<TEntity> Gets(ODataQueryOptions opts, [FromUri] TSearchContext search)
         {
+            ODataQuerySettings querySettings = new ODataQuerySettings()
+            {
+                PageSize = 100
+            };
+
+
             var settings = new ODataValidationSettings()
             {
                 // Initialize settings as needed.
@@ -45,7 +50,7 @@ namespace Astra.Infrastructure
 
             opts.Validate(settings);
 
-            var results = opts.ApplyTo(Service.Value.SearchQuery(search));
+            var results = opts.ApplyTo(Service.Value.SearchQuery(search), querySettings);
 
             return new PageResult<TEntity>(
                 results as IEnumerable<TEntity>,
@@ -59,7 +64,7 @@ namespace Astra.Infrastructure
         [HttpGet]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public async Task<IHttpActionResult> Get(TKey id) {
+        public virtual async Task<IHttpActionResult> Get(int id) {
             var record = Service.Value.Find(id);
             if (record != null)
                 return Ok(record);
@@ -72,10 +77,10 @@ namespace Astra.Infrastructure
         [HttpPost]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public async Task<IHttpActionResult> Post([FromBody]TEntity value)
+        public virtual async Task<IHttpActionResult> Post([FromBody]TEntity value)
         {
             await Service.Value.Create(value, BeforePost, AfterPost);
-            return Ok();
+            return Ok(value);
         }
 
         [NonAction]
@@ -95,7 +100,7 @@ namespace Astra.Infrastructure
         [HttpPut]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public async Task<IHttpActionResult> Put(TKey id, [FromBody]TEntity value)
+        public virtual async Task<IHttpActionResult> Put(int id, [FromBody]TEntity value)
         {
             await Service.Value.Update(id, entity => {
                 return BeforePut(entity, value);
@@ -120,7 +125,7 @@ namespace Astra.Infrastructure
         [HttpPatch]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public async Task<IHttpActionResult> Patch(TKey id, [FromBody]JsonPatchDocument<TEntity> value)
+        public virtual async Task<IHttpActionResult> Patch(int id, [FromBody]JsonPatchDocument<TEntity> value)
         {
             await Service.Value.Update(id, entity => {
                 return BeforePatch(entity, value);
@@ -148,7 +153,7 @@ namespace Astra.Infrastructure
         [HttpDelete]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.BadRequest)]
-        public async Task<IHttpActionResult> Delete(TKey id)
+        public virtual async Task<IHttpActionResult> Delete(int id)
         {
             await Service.Value.Remove(Service.Value.Find(id), BeforeDelete, AfterDelete);
             return Ok();

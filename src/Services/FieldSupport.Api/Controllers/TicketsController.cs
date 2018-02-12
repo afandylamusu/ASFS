@@ -12,7 +12,7 @@ namespace FieldSupport.Api.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/tickets")]
-    public class TicketsController : BaseApiController<ITicketService, Ticket, int, TicketSearchContext>
+    public class TicketsController : BaseApiController<ITicketService, Ticket, TicketSearchContext>
     {
         /// <summary>
         /// 

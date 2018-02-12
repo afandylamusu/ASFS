@@ -60,6 +60,7 @@
     <Compile Include="SharedKernel\BaseEntity.cs" />
     <Compile Include="Interfaces\IAuditTrail.cs" />
     <Compile Include="SharedKernel\IgnoreMemberAttribute.cs" />
+    <Compile Include="SharedKernel\IOptions.cs" />
     <Compile Include="SharedKernel\IPagedList.cs" />
     <Compile Include="SharedKernel\NopException.cs" />
     <Compile Include="SharedKernel\PagedList.cs" />

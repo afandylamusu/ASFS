@@ -65,6 +65,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Marvin.JsonPatch, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Marvin.JsonPatch.2.1.0\lib\portable40-net40+win8\Marvin.JsonPatch.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -156,7 +159,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\MaintenanceGroupsController.cs" />
+    <Compile Include="Controllers\EngineersController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
+    <Compile Include="Controllers\MaintenanceAreasController.cs" />
+    <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Infrastructure\Mappings\Location\AddressMapping.cs" />
     <Compile Include="Infrastructure\Mappings\Maintenance\CustomerMapping.cs" />
     <Compile Include="Infrastructure\Mappings\Maintenance\EngineerMapping.cs" />
@@ -168,8 +177,16 @@
     <Compile Include="Infrastructure\Migrations\201802020402271_Dev_1000.Designer.cs">
       <DependentUpon>201802020402271_Dev_1000.cs</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Migrations\201802050831430_Dev_1000_02.cs" />
+    <Compile Include="Infrastructure\Migrations\201802050831430_Dev_1000_02.Designer.cs">
+      <DependentUpon>201802050831430_Dev_1000_02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ICustomerService.cs" />
+    <Compile Include="Services\IEngineerService.cs" />
+    <Compile Include="Services\IMaintenanceAreaService.cs" />
+    <Compile Include="Services\IMaintenanceGroupService.cs" />
+    <Compile Include="Services\IMenuService.cs" />
     <Compile Include="Services\ITicketService.cs" />
-    <Compile Include="Services\TicketSearchContext.cs" />
     <Compile Include="Infrastructure\Migrations\Configuration.cs" />
     <Compile Include="Tickers\Notification.cs" />
     <Compile Include="Controllers\NotificationHub.cs" />
@@ -195,11 +212,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure\Audit\" />
     <Folder Include="Userfiles\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Infrastructure\Migrations\201802020402271_Dev_1000.resx">
       <DependentUpon>201802020402271_Dev_1000.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Infrastructure\Migrations\201802050831430_Dev_1000_02.resx">
+      <DependentUpon>201802050831430_Dev_1000_02.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

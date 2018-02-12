@@ -39,6 +39,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Elasticsearch.Net.5.6.0\lib\net45\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -58,8 +61,11 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NEST.5.6.0\lib\net45\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -112,8 +118,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppDomainTypeFinder.cs" />
+    <Compile Include="Audit\AuditDbContext.cs" />
     <Compile Include="Audit\AuditDbContextExtension.cs" />
+    <Compile Include="Audit\AuditModels.cs" />
+    <Compile Include="Audit\AuditTrailExtensions.cs" />
+    <Compile Include="Audit\AuditTrailProvider.cs" />
     <Compile Include="Audit\EntityAudit.cs" />
+    <Compile Include="Audit\IAuditTrailProvider.cs" />
+    <Compile Include="Audit\Migrations\201802021059339_Initial.cs" />
+    <Compile Include="Audit\Migrations\201802021059339_Initial.Designer.cs">
+      <DependentUpon>201802021059339_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Audit\Migrations\Configuration.cs" />
+    <Compile Include="Audit\Model\AuditTrailLog.cs" />
+    <Compile Include="Audit\Model\AuditTrailOptions.cs" />
+    <Compile Include="Audit\Model\AuditTrailPaging.cs" />
+    <Compile Include="Audit\Model\IAuditTrailLog.cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Data\BaseFacade.cs" />
     <Compile Include="Data\DbContextExtension.cs" />
@@ -150,6 +170,11 @@
       <Project>{84416dc1-7a8d-48f1-9617-96bcb58a671e}</Project>
       <Name>Astra.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Audit\Migrations\201802021059339_Initial.resx">
+      <DependentUpon>201802021059339_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

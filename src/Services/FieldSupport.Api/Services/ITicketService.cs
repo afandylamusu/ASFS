@@ -13,6 +13,11 @@ namespace FieldSupport.Api.Services
     {
     }
 
+    public class TicketSearchContext : SearchContext
+    {
+
+    }
+
     /// <summary>
     /// 
     /// </summary>

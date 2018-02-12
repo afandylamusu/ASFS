@@ -1,26 +1,41 @@
 ﻿using Astra.Infrastructure.Audit;
+using Astra.Infrastructure.AuditTrail;
 using Astra.Infrastructure.Data;
-using FieldSupport.Api.Infrastructure.Mappings;
-using System;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace FieldSupport.Api.Infrastructure
 {
     /// <summary>
     /// 
     /// </summary>
-    public class FieldSupportContext : MainDbContext
+    public class FieldSupportContext : DbContext
     {
+        private readonly AuditDbContext _auditContext;
+        private readonly IAuditTrailProvider<AuditEntityLog> _auditTrailProvider;
 
         /// <summary>
         /// 
         /// </summary>
-        public FieldSupportContext() : base("DefaultConnection")
-        {
+        public FieldSupportContext() : base("DefaultConnection") { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public FieldSupportContext(AuditDbContext auditContext) : base("DefaultConnection")
+        {
+            _auditContext = auditContext;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="auditTrailProvider"></param>
+        public FieldSupportContext(IAuditTrailProvider<AuditEntityLog> auditTrailProvider) : base("DefaultConnection")
+        {
+            _auditTrailProvider = auditTrailProvider;
         }
 
         /// <summary>
@@ -31,7 +46,16 @@ namespace FieldSupport.Api.Infrastructure
         {
             modelBuilder.ApplyEntityTypeConfiguration(Assembly.GetExecutingAssembly());
 
-            modelBuilder.SetAuditEntityConfig();
         }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var auditEntries = this.OnBeforeSaveChanges();
+            var result = await base.SaveChangesAsync(cancellationToken);
+            if (auditEntries.Count > 0)
+                await this.OnAfterSaveChanges(auditEntries, _auditTrailProvider);
+            return result;
+        }
+
     }
 }
