@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Hosting;
 
-namespace Astra.Infrastructure
+namespace Astra
 {
     /// <summary>
     /// Provides information about types in the current web application. 
