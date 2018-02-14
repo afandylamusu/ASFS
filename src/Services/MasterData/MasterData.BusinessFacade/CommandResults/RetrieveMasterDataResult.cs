@@ -14,9 +14,9 @@ namespace Astra.Facades
         {
             Menus = new List<object>();
             UserCategories = new List<object>();
-            ProblemAreas = new List<object>();
-            ProblemDetails = new List<object>();
-            ProblemGroups = new List<object>();
+            ProblemAreas = new List<IncidentArea>();
+            ProblemDetails = new List<IncidentAreaDetail>();
+            ProblemGroups = new List<IncidentAreaGroup>();
             RootCauseGroups = new List<RootCauseGroup>();
             RootCauseAreas = new List<RootCause>();
             RootCauseDetails = new List<RootCauseDetail>();
@@ -26,9 +26,9 @@ namespace Astra.Facades
 
         public IList<object> Menus { get; internal set; }
         public IList<object> UserCategories { get; internal set; }
-        public IList<object> ProblemGroups { get; internal set; }
-        public IList<object> ProblemAreas { get; internal set; }
-        public IList<object> ProblemDetails { get; internal set; }
+        public IList<IncidentAreaGroup> ProblemGroups { get; internal set; }
+        public IList<IncidentArea> ProblemAreas { get; internal set; }
+        public IList<IncidentAreaDetail> ProblemDetails { get; internal set; }
         public IList<RootCauseGroup> RootCauseGroups { get; internal set; }
         public IList<RootCause> RootCauseAreas { get; internal set; }
         public IList<RootCauseDetail> RootCauseDetails { get; internal set; }

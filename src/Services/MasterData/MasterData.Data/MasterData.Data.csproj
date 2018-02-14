@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\IncidentArea.cs" />
+    <Compile Include="Domain\IncidentAreaDetail.cs" />
+    <Compile Include="Domain\IncidentAreaGroup.cs" />
     <Compile Include="Domain\MenuItem.cs" />
     <Compile Include="Mappings\MenuEntityMapping.cs" />
     <Compile Include="MasterDataContext.cs" />

@@ -17,6 +17,10 @@ namespace MasterData.Data
         public virtual DbSet<RootCauseDetail> RootCauseDetails { get; set; }
         public virtual DbSet<RootCauseGroup> RootCauseGroups { get; set; }
 
+        public virtual DbSet<IncidentAreaDetail> IncidentAreaDetails { get; set; }
+        public virtual DbSet<IncidentAreaGroup> IncidentAreaGroups { get; set; }
+        public virtual DbSet<IncidentArea> IncidentAreas { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.ApplyEntityTypeConfiguration(typeof(MasterDataContext).Assembly);
