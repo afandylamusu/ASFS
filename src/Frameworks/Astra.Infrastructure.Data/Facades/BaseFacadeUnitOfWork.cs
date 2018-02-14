@@ -6,11 +6,23 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Astra.Facades
 {
-    public abstract class BaseFacadeUnitOfWork<TEntity, TSearchContext> : IBaseFacade<TEntity, TSearchContext>
+    public interface IBaseFacadeUnitOfWork<TEntity, TSearchContext> : IBaseFacade<TEntity, TSearchContext>
+    {
+        Task<IPagedList<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, object>> include = null,
+            int pageIndex = 0,
+            int pageSize = 20,
+            bool disableTracking = true,
+            CancellationToken cancellationToken = default(CancellationToken));
+    }
+
+    public abstract class BaseFacadeUnitOfWork<TEntity, TSearchContext> : IBaseFacadeUnitOfWork<TEntity, TSearchContext>
         where TEntity : BaseEntity
         where TSearchContext : ISearchContext
     {
@@ -27,12 +39,12 @@ namespace Astra.Facades
         public virtual async Task Create(TEntity record, Action<TEntity> before = null, Action<TEntity> after = null)
         {
             if(before != null) before.Invoke(record);
-            record.Active = true;
-            if (record is IAuditTrail)
+            //record.Active = true;
+            if (record is IEntityHistory)
             {
-                var auditRec = record as IAuditTrail;
-                auditRec._CreatedUtc = DateTime.UtcNow;
-                auditRec._LastModifiedUtc = DateTime.Parse("2000-01-01");
+                var auditRec = record as IEntityHistory;
+                auditRec.CreatedOn = DateTime.UtcNow;
+                auditRec.ModifiedOn = DateTime.Parse("2000-01-01");
             }
             EntitySet.Insert(record);
             await UnitOfWork.SaveChangesAsync();
@@ -43,11 +55,11 @@ namespace Astra.Facades
         public virtual async Task Remove(TEntity record, Action<TEntity> before = null, Action<TEntity> after = null)
         {
             if(before != null) before.Invoke(record);
-            if (record is ISoftDelete)
+            if (record is IEntitySoftDelete)
             {
-                var softDelRec = record as ISoftDelete;
-                softDelRec._DeletedUtc = DateTime.UtcNow;
-                softDelRec._IsDeleted = true;
+                var softDelRec = record as IEntitySoftDelete;
+                softDelRec.DeletedOn = DateTime.UtcNow;
+                softDelRec.IsDeleted = true;
                 EntitySet.Update(record);
             }
             else
@@ -72,8 +84,8 @@ namespace Astra.Facades
                 ignoreProps = new List<string>();
 
             ignoreProps.Add("Id");
-            ignoreProps.AddRange(typeof(IAuditTrail).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
-            ignoreProps.AddRange(typeof(ISoftDelete).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
+            ignoreProps.AddRange(typeof(IEntityHistory).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
+            ignoreProps.AddRange(typeof(IEntitySoftDelete).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
 
             PropertyInfo[] sourceProprties = T1.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             PropertyInfo[] targetProprties = T2.GetProperties(BindingFlags.Instance | BindingFlags.Public);
@@ -108,10 +120,10 @@ namespace Astra.Facades
             MapProp(data, record);
 
             /// TODO: 
-            if (record is IAuditTrail)
+            if (record is IEntityHistory)
             {
-                var auditRec = record as IAuditTrail;
-                auditRec._LastModifiedUtc = DateTime.UtcNow;
+                var auditRec = record as IEntityHistory;
+                auditRec.ModifiedOn = DateTime.UtcNow;
             }
             EntitySet.Update(record);
             await UnitOfWork.SaveChangesAsync();
@@ -124,20 +136,22 @@ namespace Astra.Facades
             return await Task.FromResult(SearchQuery(search).AsEnumerable());
         }
 
-        //public Task<IPagedList<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> predicate = null, 
-        //    Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
-        //    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null, 
-        //    int pageIndex = 0, 
-        //    int pageSize = 20, 
-        //    bool disableTracking = true, 
-        //    CancellationToken cancellationToken = default(CancellationToken))
-        //{
-        //    return EntitySet.GetPagedListAsync(predicate, orderBy, include, pageIndex, pageSize, disableTracking, cancellationToken);
-        //}
+        public Task<IPagedList<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> predicate = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, object>> include = null,
+            int pageIndex = 0,
+            int pageSize = 20,
+            bool disableTracking = true,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return EntitySet.GetPagedListAsync(predicate, orderBy, include, pageIndex, pageSize, disableTracking, cancellationToken);
+        }
 
         public abstract IQueryable<TEntity> SearchQuery(TSearchContext search);
 
         public virtual TEntity Find(object key) { return EntitySet.Find(key); }
+
+
 
         public IQueryable<TEntity> Queryable
         {

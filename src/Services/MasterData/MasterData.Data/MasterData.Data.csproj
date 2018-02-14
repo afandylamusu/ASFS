@@ -39,6 +39,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,12 +51,10 @@
     <Compile Include="Domain\MenuItem.cs" />
     <Compile Include="Mappings\MenuEntityMapping.cs" />
     <Compile Include="MasterDataContext.cs" />
-    <Compile Include="Migrations\201802130653069_Dev_1000_01.cs" />
-    <Compile Include="Migrations\201802130653069_Dev_1000_01.Designer.cs">
-      <DependentUpon>201802130653069_Dev_1000_01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\MasterDataContextConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Domain\RootCause.cs" />
+    <Compile Include="Domain\RootCauseDetail.cs" />
+    <Compile Include="Domain\RootCauseGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Errors\" />
@@ -72,11 +72,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802130653069_Dev_1000_01.resx">
-      <DependentUpon>201802130653069_Dev_1000_01.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -32,7 +32,7 @@ namespace System.Data.Entity
         {
             // Must ToArray() here for excluding the AutoHistory model.
             // Currently, only support Modified and Deleted entity.
-            var entries = context.ChangeTracker.Entries().Where(e => e.Entity is IAuditTrail).ToArray();
+            var entries = context.ChangeTracker.Entries().Where(e => e.Entity is IEntityHistory).ToArray();
             foreach (var entry in entries)
             {
                 //context.Add(entry.AutoHistory());

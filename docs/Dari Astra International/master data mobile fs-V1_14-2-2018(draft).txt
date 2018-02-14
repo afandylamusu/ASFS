@@ -1,0 +1,12 @@
+DB ITSSCoreTicketHandling
+
+Menu			: belum ada
+UserCategories		: belum ada
+Problem Group		: IncidentAreaGroup
+Problem Area		: IncidentArea
+Problem Detail		: IncidentAreaDetail
+Root Cause Group	: RootCauseGroup
+Root Cause Area		: RootCause
+Root Cause Detail	: RootCauseDetail
+Profile FS		: Profile join ke Assignee join ke AssigneeGroup where assigneegroup.name = PCSupport
+Additional Rating	: belum ada

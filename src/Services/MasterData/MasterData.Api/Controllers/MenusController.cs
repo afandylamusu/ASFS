@@ -1,15 +1,9 @@
 ﻿using MasterData.Data.Domain;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
-using MasterData.BusinessFacade;
 using System.Linq.Expressions;
-using System.Web.Http.OData;
-using System.Threading.Tasks;
-using System.Web.Http.OData.Query;
+using Astra.Facades;
 
 namespace MasterData.Api.Controllers
 {
@@ -17,7 +11,7 @@ namespace MasterData.Api.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/menus")]
-    public class MenusController : RestController<MenuItem, MenuSearchContext>
+    internal class MenusController : RestController<MenuItem, MenuSearchContext>
     {
         /// <summary>
         /// 

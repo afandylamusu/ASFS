@@ -8,7 +8,7 @@ namespace MasterData.Data.Mappings
         public MenuEntityMapping()
         {
             this.ToTable("Menus");
-            this.HasKey(p => p.Id);
+            this.HasKey(p => p.ID);
 
             this.Property(p => p.Label).HasMaxLength(64).IsRequired();
             this.Property(p => p.RefTypeName).HasMaxLength(128);

@@ -10,6 +10,8 @@ using Swashbuckle.Application;
 using MasterData.Data;
 using System.Data.Entity.Migrations;
 using System.Data.Entity;
+using Newtonsoft.Json.Serialization;
+using Astra.Facades;
 
 [assembly: OwinStartup(typeof(MasterData.Api.Startup))]
 
@@ -47,7 +49,7 @@ namespace MasterData.Api
 
             //app.MapSignalR();
 
-            MigrateDatabse(container);
+            //MigrateDatabse(container);
         }
 
         private HttpConfiguration ConfigureWebApi(IContainer container)
@@ -60,6 +62,9 @@ namespace MasterData.Api
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             // Register the Autofac middleware FIRST, then the Autofac Web API middleware,
             // and finally the standard Web API middleware.
+
+            //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
             config.AddODataQueryFilter();
             config.MapHttpAttributeRoutes();
@@ -88,26 +93,29 @@ namespace MasterData.Api
 
         private void RegisterServices(ContainerBuilder builder)
         {
-            builder.Register<MasterDataContext>(c =>
+            builder.Register(c =>
             {
                 var context = new MasterDataContext();
                 return context;
             }).InstancePerLifetimeScope();
 
             builder.AddUnitOfWork<MasterDataContext>();
+
+            builder.RegisterType<MenuService>().As<IMenuService>().InstancePerLifetimeScope();
+            builder.RegisterType<RetrieveMasterDataCommand>().As<IRetrieveMasterDataCommand>().InstancePerLifetimeScope();
         }
 
         private void MigrateDatabse(IContainer container)
         {
-            var context = container.Resolve<MasterDataContext>();
-            //if (!context.Database.Exists())
-            //{
-            //    throw new Exception("Database migration failed because the target database does not exist. Ensure the database was initialized.");
-            //}
+            //var context = container.Resolve<MasterDataContext>();
+            ////if (!context.Database.Exists())
+            ////{
+            ////    throw new Exception("Database migration failed because the target database does not exist. Ensure the database was initialized.");
+            ////}
 
-            var migrateConfig = new MasterData.Data.Migrations.MasterDataContextConfiguration();
-            var migrate = new DbMigrator(migrateConfig);
-            migrate.Update();
+            //var migrateConfig = new MasterData.Data.Migrations.MasterDataContextConfiguration();
+            //var migrate = new DbMigrator(migrateConfig);
+            //migrate.Update();
         }
     }
 }

@@ -34,6 +34,7 @@
       <HintPath>..\..\..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
@@ -49,6 +50,7 @@
     <Compile Include="AppDomainTypeFinder.cs" />
     <Compile Include="AstraException.cs" />
     <Compile Include="BaseEntity.cs" />
+    <Compile Include="CommandBus\CommandBus.cs" />
     <Compile Include="DependencyInjection\ContainerManager.cs" />
     <Compile Include="DependencyInjection\IDependencyRegistrar.cs" />
     <Compile Include="Extensions\TestExtensions.cs" />

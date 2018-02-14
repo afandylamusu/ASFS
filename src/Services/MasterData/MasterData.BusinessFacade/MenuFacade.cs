@@ -4,31 +4,32 @@ using MasterData.Data;
 using MasterData.Data.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MasterData.BusinessFacade
+namespace Astra.Facades
 {
     public class MenuSearchContext : SearchContext{
 
     }
 
-    public interface IMenuService : IBaseFacade<MenuItem, MenuSearchContext>
+    public interface IMenuService : IBaseFacadeUnitOfWork<MenuItem, MenuSearchContext>
     {
 
     }
 
-    public class MenuFacade : BaseFacade<MenuItem, MenuSearchContext>, IMenuService
+    public class MenuService : BaseFacadeUnitOfWork<MenuItem, MenuSearchContext>, IMenuService
     {
-        public MenuFacade(MasterDataContext context) : base(context)
+        public MenuService(IUnitOfWork<MasterDataContext> context) : base(context)
         {
 
         }
 
         public override IQueryable<MenuItem> SearchQuery(MenuSearchContext search)
         {
-            return EntitySet.Where(q => true);
+            return EntitySet.Queryable.Where(q => true);
         }
     }
 }

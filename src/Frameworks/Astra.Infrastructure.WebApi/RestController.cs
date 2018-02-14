@@ -72,7 +72,7 @@ namespace System.Web.Http
                 return;
             }
 
-            predicate.AndAlso(x => x.Id == id);
+            predicate.AndAlso(x => x.ID == id);
          
             var item = entitySet.GetFirstOrDefault(s => s, predicate);
 
@@ -94,21 +94,21 @@ namespace System.Web.Http
                 return;
             }
 
-            value.Active = true;
+            //value.Active = true;
 
             before(value);
 
-            if (value is IAuditTrail)
+            if (value is IEntityHistory)
             {
-                var auditRecord = value as IAuditTrail;
-                auditRecord._CreatedUtc = DateTime.UtcNow;
-                auditRecord._CreatedBy = "Test";
-                auditRecord._CreatedAgent = "Chrome";
+                var auditRecord = value as IEntityHistory;
+                auditRecord.CreatedOn = DateTime.UtcNow;
+                auditRecord.CreatedBy = "Test";
+                //auditRecord._CreatedAgent = "Chrome";
             }
 
             entitySet.Insert(value);
 
-            context.SaveChanges(value is IAuditTrail);
+            context.SaveChanges(value is IEntityHistory);
 
             after(value);
 
@@ -136,17 +136,17 @@ namespace System.Web.Http
             // Update current product
             entity = before(entity, value);
 
-            if (entity is IAuditTrail)
+            if (entity is IEntityHistory)
             {
-                var auditRecord = value as IAuditTrail;
-                auditRecord._LastModifiedUtc = DateTime.UtcNow;
-                auditRecord._LastModifiedBy = "Test";
-                auditRecord._LastModifiedAgent = "Chrome";
+                var auditRecord = value as IEntityHistory;
+                auditRecord.ModifiedOn = DateTime.UtcNow;
+                auditRecord.ModifiedBy = "Test";
+                //auditRecord._LastModifiedAgent = "Chrome";
             }
 
             entitySet.Update(entity);
 
-            context.SaveChanges(value is IAuditTrail);
+            context.SaveChanges(value is IEntityHistory);
 
             after(entity);
 
@@ -157,7 +157,7 @@ namespace System.Web.Http
              where TEntity : BaseEntity
         {
             var entity = entitySet
-                .GetFirstOrDefault(s => s, i => i.Id == id);
+                .GetFirstOrDefault(s => s, i => i.ID == id);
 
             if (entity == null)
             {
@@ -169,7 +169,7 @@ namespace System.Web.Http
 
             entitySet.Delete(entity);
 
-            context.SaveChanges(entity is IAuditTrail);
+            context.SaveChanges(entity is IEntityHistory);
 
             after(entity);
 
@@ -439,7 +439,7 @@ namespace System.Web.Http
         public virtual async Task<IHttpActionResult> Post([FromBody]TEntity value)
         {
             IHttpActionResult response;
-            this.Post(Context, EntitySet, value, BeforeCreate, AfterCreate, "Get/" + value.Id, out response);
+            this.Post(Context, EntitySet, value, BeforeCreate, AfterCreate, "Get/" + value.ID, out response);
             return await Task.FromResult(response);
 
         }
@@ -453,7 +453,7 @@ namespace System.Web.Http
         public virtual async Task<IHttpActionResult> Put(int id, [FromBody]TEntity value)
         {
             IHttpActionResult response;
-            this.Put(Context, EntitySet, id, value, BeforeUpdate, AfterUpdate, "Get/" + value.Id, out response);
+            this.Put(Context, EntitySet, id, value, BeforeUpdate, AfterUpdate, "Get/" + value.ID, out response);
             return await Task.FromResult(response);
 
         }

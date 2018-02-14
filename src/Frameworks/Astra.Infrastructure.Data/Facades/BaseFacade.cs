@@ -9,17 +9,6 @@ using System.Threading.Tasks;
 
 namespace Astra.Facades
 {
-    //public interface IBaseFacadeUnitOfWork<TEntity>
-    //{
-    //    Task<IPagedList<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> predicate = null,
-    //        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-    //        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
-    //        int pageIndex = 0,
-    //        int pageSize = 20,
-    //        bool disableTracking = true,
-    //        CancellationToken cancellationToken = default(CancellationToken));
-    //}
-
     public abstract class BaseFacade<TEntity, TSearchContext> : IBaseFacade<TEntity, TSearchContext>
         where TEntity : BaseEntity
         where TSearchContext : ISearchContext
@@ -42,12 +31,12 @@ namespace Astra.Facades
             if (before != null)
                 before.Invoke(record);
 
-            record.Active = true;
-            if (record is IAuditTrail)
+            //record.Active = true;
+            if (record is IEntityHistory)
             {
-                var auditRec = record as IAuditTrail;
-                auditRec._CreatedUtc = DateTime.UtcNow;
-                auditRec._LastModifiedUtc = DateTime.Parse("2000-01-01");
+                var auditRec = record as IEntityHistory;
+                auditRec.CreatedOn = DateTime.UtcNow;
+                auditRec.ModifiedOn = DateTime.Parse("2000-01-01");
             }
             EntitySet.Add(record);
             await _context.SaveChangesAsync();
@@ -62,11 +51,11 @@ namespace Astra.Facades
             if (before != null)
                 before.Invoke(record);
 
-            if (record is ISoftDelete)
+            if (record is IEntitySoftDelete)
             {
-                var softDelRec = record as ISoftDelete;
-                softDelRec._DeletedUtc = DateTime.UtcNow;
-                softDelRec._IsDeleted = true;
+                var softDelRec = record as IEntitySoftDelete;
+                softDelRec.DeletedOn = DateTime.UtcNow;
+                softDelRec.IsDeleted = true;
                 //EntitySet.UpdateAsync(record);
             }
             else
@@ -92,8 +81,8 @@ namespace Astra.Facades
                 ignoreProps = new List<string>();
 
             ignoreProps.Add("Id");
-            ignoreProps.AddRange(typeof(IAuditTrail).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
-            ignoreProps.AddRange(typeof(ISoftDelete).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
+            ignoreProps.AddRange(typeof(IEntityHistory).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
+            ignoreProps.AddRange(typeof(IEntitySoftDelete).GetProperties(BindingFlags.Instance | BindingFlags.Public).Select(o => o.Name));
 
             PropertyInfo[] sourceProprties = T1.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             PropertyInfo[] targetProprties = T2.GetProperties(BindingFlags.Instance | BindingFlags.Public);
@@ -128,10 +117,10 @@ namespace Astra.Facades
             MapProp(data, record);
 
             /// TODO: 
-            if (record is IAuditTrail)
+            if (record is IEntityHistory)
             {
-                var auditRec = record as IAuditTrail;
-                auditRec._LastModifiedUtc = DateTime.UtcNow;
+                var auditRec = record as IEntityHistory;
+                auditRec.ModifiedOn = DateTime.UtcNow;
             }
 
             await _context.SaveChangesAsync();

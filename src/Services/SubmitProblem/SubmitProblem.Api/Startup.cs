@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.OData.Extensions;
 using Swashbuckle.Application;
+using Newtonsoft.Json.Serialization;
 
 [assembly: OwinStartup(typeof(SubmitProblem.Api.Startup))]
 
@@ -55,16 +56,17 @@ namespace SubmitProblem.Api
             // Register the Autofac middleware FIRST, then the Autofac Web API middleware,
             // and finally the standard Web API middleware.
 
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+
             config.AddODataQueryFilter();
+            config.MapHttpAttributeRoutes();
 
             config.EnableSwagger(c =>
             {
                 c.SingleApiVersion("v1", "Submit Problem API");
                 c.IncludeXmlComments(GetXmlCommentsPath());
             }).EnableSwaggerUi();
-
-            config.MapHttpAttributeRoutes();
-
 
             config.Routes.MapHttpRoute(
                 "DefaultApi",
@@ -88,6 +90,7 @@ namespace SubmitProblem.Api
 
         private void RegisterServices(ContainerBuilder builder)
         {
+
         }
     }
 }

@@ -4,72 +4,72 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Astra
+namespace System.Data.Entity
 {
-    public interface IAuditTrail
+    public interface IEntityHistory
     {
         /// <summary>
         /// Recording time against created entity. In UTC format
         /// </summary>
         /// <returns></returns>
-        DateTime _CreatedUtc { get; set; }
+        DateTime CreatedOn { get; set; }
 
         /// <summary>
         /// Recording user against created entity.
         /// </summary>
         /// <returns></returns>
-        string _CreatedBy { get; set; }
+        string CreatedBy { get; set; }
 
         /// <summary>
         /// Recording user agent against created entity.
         /// </summary>
         /// <returns></returns>
-        string _CreatedAgent { get; set; }
+        //string _CreatedAgent { get; set; }
 
         /// <summary>
         /// Recording time against modified entity. In UTC format
         /// </summary>
         /// <returns></returns>
-        DateTime? _LastModifiedUtc { get; set; }
+        DateTime? ModifiedOn { get; set; }
 
         /// <summary>
         /// Recording user against modified entity.
         /// </summary>
         /// <returns></returns>
-        string _LastModifiedBy { get; set; }
+        string ModifiedBy { get; set; }
 
         /// <summary>
         /// Recording user agent against modified entity.
         /// </summary>
         /// <returns></returns>
-        string _LastModifiedAgent { get; set; }
+        //string _LastModifiedAgent { get; set; }
     }
 
-    public interface ISoftDelete
+    public interface IEntitySoftDelete
     {
         /// <summary>
         /// Flagging deleted entity.
         /// </summary>
         /// <returns>Boolean</returns>
-        bool _IsDeleted { get; set; }
+        bool IsDeleted { get; set; }
 
         /// <summary>
         /// Recording time against deleted entity. In UTC format
         /// </summary>
         /// <returns></returns>
-        DateTime? _DeletedUtc { get; set; }
+        DateTime? DeletedOn { get; set; }
 
         /// <summary>
         /// Recording user against deleted entity. 
         /// </summary>
         /// <returns></returns>
-        string _DeletedBy { get; set; }
+        string DeletedBy { get; set; }
 
         /// <summary>
         /// Recording user agent against deleted entity. 
         /// </summary>
         /// <returns></returns>
-        string _DeletedAgent { get; set; }
+        //string _DeletedAgent { get; set; }
     }
 
 }
