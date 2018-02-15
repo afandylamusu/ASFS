@@ -9,6 +9,53 @@ using System.Threading.Tasks;
 
 namespace Astra.Facades
 {
+    public class RetrieveMasterDataArg
+    {
+
+        public class Master
+        {
+            public string Name { get; set; }
+            public DateTime? LastModified { get; set; }
+        }
+
+        public IList<Master> Masters { get; set; }
+    }
+
+    public class RetrieveMasterDataResult
+    {
+
+        public RetrieveMasterDataResult()
+        {
+            Menus = new List<object>();
+            UserCategories = new List<object>();
+            ProblemAreas = new List<IncidentArea>();
+            ProblemDetails = new List<IncidentAreaDetail>();
+            ProblemGroups = new List<IncidentAreaGroup>();
+            RootCauseGroups = new List<RootCauseGroup>();
+            RootCauseAreas = new List<RootCause>();
+            RootCauseDetails = new List<RootCauseDetail>();
+            FSProfiles = new List<object>();
+            AdditionalRatings = new List<object>();
+        }
+
+        public IList<object> Menus { get; internal set; }
+        public IList<object> UserCategories { get; internal set; }
+        public IList<IncidentAreaGroup> ProblemGroups { get; internal set; }
+        public IList<IncidentArea> ProblemAreas { get; internal set; }
+        public IList<IncidentAreaDetail> ProblemDetails { get; internal set; }
+        public IList<RootCauseGroup> RootCauseGroups { get; internal set; }
+        public IList<RootCause> RootCauseAreas { get; internal set; }
+        public IList<RootCauseDetail> RootCauseDetails { get; internal set; }
+        public IList<object> FSProfiles { get; internal set; }
+        public IList<object> AdditionalRatings { get; internal set; }
+    }
+
+    public interface IRetrieveMasterDataCommand
+    {
+        CommandResult<RetrieveMasterDataResult> Execute(RetrieveMasterDataArg args);
+    }
+
+
     public class RetrieveMasterDataCommand : IRetrieveMasterDataCommand
     {
         private readonly IUnitOfWork<MasterDataContext> _context;
@@ -31,17 +78,31 @@ namespace Astra.Facades
             _incidentAreaDetailRepo = _context.GetRepository<IncidentAreaDetail>();
         }
 
-        public CommandResult<RetrieveMasterDataResult> Execute(MasterDataArguments args)
+        public CommandResult<RetrieveMasterDataResult> Execute(RetrieveMasterDataArg args)
         {
             var data = new RetrieveMasterDataResult();
 
-            data.RootCauseAreas = _rootCauseRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE).ToList();
-            data.RootCauseDetails = _rootCauseDetailRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE).ToList();
-            data.RootCauseGroups = _rootCauseGroupRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE).ToList();
+            RetrieveMasterDataArg.Master temp = null;
 
-            data.ProblemAreas = _incidentAreaRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE).ToList();
-            data.ProblemDetails = _incidentAreaDetailRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE).ToList();
-            data.ProblemGroups = _incidentAreaGroupRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE).ToList();
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "RootCauseAreas")) != null)
+                data.RootCauseAreas = _rootCauseRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "RootCauseDetails")) != null)
+                data.RootCauseDetails = _rootCauseDetailRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "RootCauseGroups")) != null)
+                data.RootCauseGroups = _rootCauseGroupRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "ProblemAreas")) != null)
+                data.ProblemAreas = _incidentAreaRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "ProblemDetails")) != null)
+                data.ProblemDetails = _incidentAreaDetailRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "ProblemGroups")) != null)
+                data.ProblemGroups = _incidentAreaGroupRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+
 
             var result = new CommandResult<RetrieveMasterDataResult>(data);
 

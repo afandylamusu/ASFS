@@ -8,6 +8,10 @@ using System.Web.Http;
 using System.Web.Http.OData.Extensions;
 using Swashbuckle.Application;
 using Newtonsoft.Json.Serialization;
+using SubmitProblem.Data;
+using System.Data.Entity;
+using Astra.Facades;
+using FluentValidation.WebApi;
 
 [assembly: OwinStartup(typeof(SubmitProblem.Api.Startup))]
 
@@ -56,11 +60,14 @@ namespace SubmitProblem.Api
             // Register the Autofac middleware FIRST, then the Autofac Web API middleware,
             // and finally the standard Web API middleware.
 
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+            //config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
             config.AddODataQueryFilter();
             config.MapHttpAttributeRoutes();
+
+            config.Filters.Add(new ValidateModelStateFilter());
+            FluentValidationModelValidatorProvider.Configure(config);
 
             config.EnableSwagger(c =>
             {
@@ -90,6 +97,23 @@ namespace SubmitProblem.Api
 
         private void RegisterServices(ContainerBuilder builder)
         {
+            builder.Register(c =>
+            {
+                var context = new SubmitProblemContext();
+                return context;
+            }).InstancePerLifetimeScope();
+
+            builder.AddUnitOfWork<SubmitProblemContext>();
+
+            builder.RegisterType<RetrieveInboxHeaderCommand>().As<IRetrieveInboxHeaderCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<RequestSubmitProblemCommand>().As<IRequestSubmitProblemCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<RequestHistoryCommand>().As<IRequestHistoryCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<GetInboxDetailCommand>().As<IGetInboxDetailCommand>().InstancePerLifetimeScope();
+            builder.RegisterType<ChangePasswordCommand>().As<IChangePasswordCommand>().InstancePerLifetimeScope();
+
+            builder.RegisterType<ActionSubmitProblemCommand>().As<IActionSubmitProblemCommand>().InstancePerLifetimeScope();
+
+            builder.RegisterType<LoginCommand>().As<ILoginCommand>().InstancePerLifetimeScope();
 
         }
     }

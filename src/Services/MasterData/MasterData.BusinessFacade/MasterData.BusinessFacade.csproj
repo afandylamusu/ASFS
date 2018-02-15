@@ -46,12 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments\MasterDataArguments.cs" />
-    <Compile Include="IRetrieveMasterDataCommand.cs" />
     <Compile Include="MenuFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetrieveMasterDataCommand.cs" />
-    <Compile Include="CommandResults\RetrieveMasterDataResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Frameworks\Astra.Core\Astra.Core.csproj">

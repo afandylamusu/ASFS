@@ -30,7 +30,7 @@ namespace MasterData.Api.Controllers
         [Route("getmasterdata")]
         [HttpPost]
         [SwaggerResponse(HttpStatusCode.OK, type: typeof(ICommandResult<RetrieveMasterDataResult>))]
-        public async Task<IHttpActionResult> GetMasterData([FromBody] MasterDataArguments args)
+        public async Task<IHttpActionResult> GetMasterData([FromBody] RetrieveMasterDataArg args)
         {
             return await Task.FromResult(Ok(_retrieveMasterDataCommand.Execute(args)));
         }

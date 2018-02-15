@@ -53,6 +53,13 @@
     <Reference Include="Autofac.Integration.WebApi.Owin">
       <HintPath>..\..\..\..\packages\Autofac.WebApi2.Owin.4.0.0\lib\net45\Autofac.Integration.WebApi.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\FluentValidation.7.2.1\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\FluentValidation.WebApi.7.2.1\lib\net45\FluentValidation.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.8.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -127,14 +134,10 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -143,8 +146,24 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
+    <ProjectReference Include="..\..\..\Frameworks\Astra.Infrastructure.Data\Astra.Infrastructure.Data.csproj">
+      <Project>{FC276FD7-14CF-4ABD-9A19-C2D5D238E8FD}</Project>
+      <Name>Astra.Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Frameworks\Astra.Infrastructure.WebApi\Astra.Infrastructure.WebApi.csproj">
+      <Project>{e2b79900-bb9a-4e0a-accc-6aed3da22767}</Project>
+      <Name>Astra.Infrastructure.WebApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubmitProblem.BusinessFacade\SubmitProblem.BusinessFacade.csproj">
+      <Project>{329CE8E2-6873-4226-8906-952CBC1C105E}</Project>
+      <Name>SubmitProblem.BusinessFacade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubmitProblem.Data\SubmitProblem.Data.csproj">
+      <Project>{1FA8804F-07A6-4082-8155-23C17CB0CE44}</Project>
+      <Name>SubmitProblem.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
