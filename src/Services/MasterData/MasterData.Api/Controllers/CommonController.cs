@@ -9,6 +9,7 @@ namespace MasterData.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [Authorize]
     [RoutePrefix("api")]
     public class CommonController : ApiController
     {

@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Service Provider";
+}
+
+<h1>Welcome to the MVC Service Provider Site</h1>
+<p>
+	You are logged in as @User.Identity.Name.
+</p>
+<p>
+@Html.ActionLink("Show Tickets", "Index", "Tickets")
+</p>
+
+@{
+    // Display the attributes returned by the identity provider.
+    var attributes = (IDictionary<string, string>)Session[Mvc4SingleSignOnSAML2.Controllers.SAMLController.AttributesSessionKey];
+
+    if (attributes != null && attributes.Count > 0) {
+        <h2>User Attributes</h2>
+
+        foreach (var attributeName in attributes.Keys) {
+            <p>@attributeName: @attributes[attributeName]</p>
+        }
+    }
+}
+
+<a href="https://localhost:9443/commonauth?commonAuthLogout=true&type=passivests&sessionDataKey=abc123&commonAuthCallerPath=http://localhost:51481/Home/LogOut&relyingParty=Mvc4SingleSignOnSAML2">Log Off</a>
+

@@ -1,0 +1,8 @@
+[ODBC]
+DRIVER=SQL Server Native Client 11.0
+DATABASE=ITSSCoreTicketHandling
+WSID=ADE-LENOVO
+APP=Enterprise Architect 12
+Trusted_Connection=Yes
+SERVER=(localdb)\mssqllocaldb
+Description=ITSSCoreTicketHandling

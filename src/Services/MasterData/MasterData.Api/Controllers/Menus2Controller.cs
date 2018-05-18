@@ -8,7 +8,7 @@ namespace MasterData.Api.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/menus2")]
-    internal class Menus2Controller : RestController<IMenuService, MenuItem, MenuSearchContext>
+    internal class Menus2Controller : RestController<IMenuService, Menu, MenuSearchContext>
     {
         /// <summary>
         /// 
@@ -24,7 +24,7 @@ namespace MasterData.Api.Controllers
         /// <param name="entity"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        protected override MenuItem BeforePut(MenuItem entity, MenuItem value)
+        protected override Menu BeforePut(Menu entity, Menu value)
         {
             return base.BeforePut(entity, value);
         }

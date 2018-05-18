@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Branch.cs" />
+    <Compile Include="Domain\Complaint.cs" />
+    <Compile Include="Domain\ComplaintAdditionalRating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubmitProblemContext.cs" />
   </ItemGroup>
@@ -60,7 +63,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Domain\" />
     <Folder Include="Errors\" />
   </ItemGroup>
   <ItemGroup>

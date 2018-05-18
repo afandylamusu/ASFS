@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Backend.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Backend.Web.Controllers.AlertsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.Web.Controllers.AlertsController.#ctor(Backend.Web.Facades.IAlertFacade)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.Web.Controllers.AlertsController.AlertList(System.Web.Http.OData.Query.ODataQueryOptions)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.Web.Controllers.ProfilesController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.Web.Controllers.ProfilesController.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Backend.Web.Controllers.ReportsController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Backend.Web.Controllers.MasterController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackList(System.Web.Http.OData.Query.ODataQueryOptions)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackCreate">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackDetail(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackUpdate(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackDelete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupList">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupCreate">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupDetail(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupUpdate(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupDelete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.Web.Facades.IAlertFacade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Backend.Web.Facades.AlertFacade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Backend.Web.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.Web.Startup.Configuration(Owin.IAppBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="T:System.Web.Http.OData.ODataQueryExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Web.Http.OData.ODataQueryExtensions.ApplyOData``1(System.Linq.IQueryable{``0},System.Web.Http.OData.Query.ODataQueryOptions,System.Int64@)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="options"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Web.Http.OData.ODataQueryExtensions.ToPageResult``1(System.Web.Http.ApiController,System.Collections.Generic.IEnumerable{``0},System.Int64)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="controller"></param>
+            <param name="itemsPage"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

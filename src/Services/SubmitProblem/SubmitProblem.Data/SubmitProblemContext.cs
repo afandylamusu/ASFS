@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubmitProblem.Data.Domain;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -14,9 +15,13 @@ namespace SubmitProblem.Data
         {
         }
 
+        public virtual DbSet<Branch> Branches { get; set; }
+        public virtual DbSet<Complaint> Complaints { get; set; }
+        public virtual DbSet<ComplaintAdditionalRating> ComplaintAdditionalRatings { get; set; }
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

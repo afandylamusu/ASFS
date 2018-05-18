@@ -12,6 +12,10 @@ using System.Data.Entity.Migrations;
 using System.Data.Entity;
 using Newtonsoft.Json.Serialization;
 using Astra.Facades;
+using MasterData.Api.Filters;
+using Microsoft.Owin.Logging;
+using FluentValidation.WebApi;
+using IdentityServer3.AccessTokenValidation;
 
 [assembly: OwinStartup(typeof(MasterData.Api.Startup))]
 
@@ -38,9 +42,26 @@ namespace MasterData.Api
 
             RegisterServices(builder);
 
+            System.Net.ServicePointManager
+                .ServerCertificateValidationCallback +=
+                (sender, cert, chain, sslPolicyErrors) => true;
+
+            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
+            {
+                Authority = "https://192.168.99.100:9443/oauth2/oidcdiscovery/.well-known/openid-configuration",
+                //BackchannelHttpHandler = new System.Net.Http.WebRequestHandler()
+                //{
+                //    PreAuthenticate = true,
+                //    Credentials = new System.Net.NetworkCredential("admin", "admin"),
+                //    //ClientCertificateOptions = System.Net.Http.ClientCertificateOption.Automatic
+                //},
+                ValidationMode = ValidationMode.ValidationEndpoint,
+                RequiredScopes = new string[] { "openid" }
+            });
+
             var container = builder.Build();
 
-            var webApiConfiguration = ConfigureWebApi(container);
+            var webApiConfiguration = ConfigureWebApi(container, app);
 
             // Use the extension method provided by the WebApi.Owin library:
             app.UseAutofacMiddleware(container);
@@ -52,14 +73,16 @@ namespace MasterData.Api
             //MigrateDatabse(container);
         }
 
-        private HttpConfiguration ConfigureWebApi(IContainer container)
+        private HttpConfiguration ConfigureWebApi(IContainer container, IAppBuilder app)
         {
 
-            var config = new HttpConfiguration();
+            var config = new HttpConfiguration
+            {
 
-            // per-controller-type services, etc., then set the dependency resolver
-            // to be Autofac.
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+                // per-controller-type services, etc., then set the dependency resolver
+                // to be Autofac.
+                DependencyResolver = new AutofacWebApiDependencyResolver(container)
+            };
             // Register the Autofac middleware FIRST, then the Autofac Web API middleware,
             // and finally the standard Web API middleware.
 
@@ -68,6 +91,12 @@ namespace MasterData.Api
 
             config.AddODataQueryFilter();
             config.MapHttpAttributeRoutes();
+
+
+            config.Filters.Add(new ValidateModelStateFilter());
+            FluentValidationModelValidatorProvider.Configure(config);
+
+            config.Filters.Add(new HttpGlobalExceptionFilter(app.CreateLogger<Startup>()));
 
             config.EnableSwagger(c =>
             {
@@ -93,11 +122,7 @@ namespace MasterData.Api
 
         private void RegisterServices(ContainerBuilder builder)
         {
-            builder.Register(c =>
-            {
-                var context = new MasterDataContext();
-                return context;
-            }).InstancePerLifetimeScope();
+            builder.RegisterType<MasterDataContext>().InstancePerLifetimeScope();
 
             builder.AddUnitOfWork<MasterDataContext>();
 

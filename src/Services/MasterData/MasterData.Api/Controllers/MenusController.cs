@@ -11,7 +11,7 @@ namespace MasterData.Api.Controllers
     /// 
     /// </summary>
     [RoutePrefix("api/menus")]
-    internal class MenusController : RestController<MenuItem, MenuSearchContext>
+    internal class MenusController : RestController<Menu, MenuSearchContext>
     {
         /// <summary>
         /// 
@@ -30,7 +30,7 @@ namespace MasterData.Api.Controllers
         /// <param name="entity"></param>
         /// <param name="entityToUpdate"></param>
         /// <returns></returns>
-        protected override MenuItem BeforeUpdate(MenuItem entity, MenuItem entityToUpdate)
+        protected override Menu BeforeUpdate(Menu entity, Menu entityToUpdate)
         {
             return entityToUpdate;
         }
@@ -40,7 +40,7 @@ namespace MasterData.Api.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        protected override Expression<Func<MenuItem, bool>> Search(MenuSearchContext filter)
+        protected override Expression<Func<Menu, bool>> Search(MenuSearchContext filter)
         {
             return x => true;
         }

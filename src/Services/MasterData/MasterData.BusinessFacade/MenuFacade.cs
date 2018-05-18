@@ -15,19 +15,19 @@ namespace Astra.Facades
 
     }
 
-    public interface IMenuService : IBaseFacadeUnitOfWork<MenuItem, MenuSearchContext>
+    public interface IMenuService : IBaseFacadeUnitOfWork<Menu, MenuSearchContext>
     {
 
     }
 
-    public class MenuService : BaseFacadeUnitOfWork<MenuItem, MenuSearchContext>, IMenuService
+    public class MenuService : BaseFacadeUnitOfWork<Menu, MenuSearchContext>, IMenuService
     {
         public MenuService(IUnitOfWork<MasterDataContext> context) : base(context)
         {
 
         }
 
-        public override IQueryable<MenuItem> SearchQuery(MenuSearchContext search)
+        public override IQueryable<Menu> SearchQuery(MenuSearchContext search)
         {
             return EntitySet.Queryable.Where(q => true);
         }

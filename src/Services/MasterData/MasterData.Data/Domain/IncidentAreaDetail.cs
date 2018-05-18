@@ -12,6 +12,9 @@ namespace MasterData.Data.Domain
     [Table("IncidentAreaDetail")]
     public partial class IncidentAreaDetail : BaseEntityHistory
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override int ID { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Name { get; set; }

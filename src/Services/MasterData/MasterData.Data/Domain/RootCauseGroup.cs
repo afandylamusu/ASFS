@@ -13,8 +13,6 @@ namespace MasterData.Data.Domain
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override int ID { get; set; }
 
-        //public short RowStatus { get; set; }
-
         public int? IncidentAreaGroupID { get; set; }
 
         [Required]

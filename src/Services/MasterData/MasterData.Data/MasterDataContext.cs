@@ -1,10 +1,7 @@
 namespace MasterData.Data
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
     using MasterData.Data.Domain;
+    using System.Data.Entity;
 
     public partial class MasterDataContext : DbContext
     {
@@ -20,6 +17,11 @@ namespace MasterData.Data
         public virtual DbSet<IncidentAreaDetail> IncidentAreaDetails { get; set; }
         public virtual DbSet<IncidentAreaGroup> IncidentAreaGroups { get; set; }
         public virtual DbSet<IncidentArea> IncidentAreas { get; set; }
+
+        public virtual DbSet<Menu> Menus { get; set; }
+        public virtual DbSet<UserCategory> UserCategories { get; set; }
+        public virtual DbSet<AdditionalRating> AdditionalRatings { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

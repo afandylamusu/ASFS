@@ -26,8 +26,8 @@ namespace Astra.Facades
 
         public RetrieveMasterDataResult()
         {
-            Menus = new List<object>();
-            UserCategories = new List<object>();
+            Menus = new List<Menu>();
+            UserCategories = new List<UserCategory>();
             ProblemAreas = new List<IncidentArea>();
             ProblemDetails = new List<IncidentAreaDetail>();
             ProblemGroups = new List<IncidentAreaGroup>();
@@ -35,11 +35,11 @@ namespace Astra.Facades
             RootCauseAreas = new List<RootCause>();
             RootCauseDetails = new List<RootCauseDetail>();
             FSProfiles = new List<object>();
-            AdditionalRatings = new List<object>();
+            AdditionalRatings = new List<AdditionalRating>();
         }
 
-        public IList<object> Menus { get; internal set; }
-        public IList<object> UserCategories { get; internal set; }
+        public IList<Menu> Menus { get; internal set; }
+        public IList<UserCategory> UserCategories { get; internal set; }
         public IList<IncidentAreaGroup> ProblemGroups { get; internal set; }
         public IList<IncidentArea> ProblemAreas { get; internal set; }
         public IList<IncidentAreaDetail> ProblemDetails { get; internal set; }
@@ -47,7 +47,7 @@ namespace Astra.Facades
         public IList<RootCause> RootCauseAreas { get; internal set; }
         public IList<RootCauseDetail> RootCauseDetails { get; internal set; }
         public IList<object> FSProfiles { get; internal set; }
-        public IList<object> AdditionalRatings { get; internal set; }
+        public IList<AdditionalRating> AdditionalRatings { get; internal set; }
     }
 
     public interface IRetrieveMasterDataCommand
@@ -65,6 +65,9 @@ namespace Astra.Facades
         private readonly IRepository<IncidentArea> _incidentAreaRepo;
         private readonly IRepository<IncidentAreaGroup> _incidentAreaGroupRepo;
         private readonly IRepository<IncidentAreaDetail> _incidentAreaDetailRepo;
+        private readonly IRepository<Menu> _menuRepo;
+        private readonly IRepository<UserCategory> _userCategoriesRepo;
+        private readonly IRepository<AdditionalRating> _additionalRatingRepo;
 
         public RetrieveMasterDataCommand(IUnitOfWork<MasterDataContext> context)
         {
@@ -76,6 +79,9 @@ namespace Astra.Facades
             _incidentAreaRepo = _context.GetRepository<IncidentArea>();
             _incidentAreaGroupRepo = _context.GetRepository<IncidentAreaGroup>();
             _incidentAreaDetailRepo = _context.GetRepository<IncidentAreaDetail>();
+            _menuRepo = _context.GetRepository<Menu>();
+            _userCategoriesRepo = _context.GetRepository<UserCategory>();
+            _additionalRatingRepo = _context.GetRepository<AdditionalRating>();
         }
 
         public CommandResult<RetrieveMasterDataResult> Execute(RetrieveMasterDataArg args)
@@ -102,6 +108,14 @@ namespace Astra.Facades
             if ((temp = args.Masters.FirstOrDefault(o => o.Name == "ProblemGroups")) != null)
                 data.ProblemGroups = _incidentAreaGroupRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
 
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "UserCategory")) != null)
+                data.UserCategories = _userCategoriesRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "Menu")) != null)
+                data.Menus = _menuRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
+
+            if ((temp = args.Masters.FirstOrDefault(o => o.Name == "AdditionalRatings")) != null)
+                data.AdditionalRatings = _additionalRatingRepo.Queryable.Where(o => o.RowStatus == RowStatus.ACTIVE && o.ModifiedOn > temp.LastModified).ToList();
 
 
             var result = new CommandResult<RetrieveMasterDataResult>(data);

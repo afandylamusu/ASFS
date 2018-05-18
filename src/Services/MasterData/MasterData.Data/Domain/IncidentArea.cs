@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MasterData.Data.Domain
 {
     [Table("IncidentArea")]
     public partial class IncidentArea : BaseEntityHistory
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override int ID { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Name { get; set; }

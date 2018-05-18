@@ -12,6 +12,9 @@ namespace MasterData.Data.Domain
     [Table("IncidentAreaGroup")]
     public partial class IncidentAreaGroup : BaseEntityHistory
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public override int ID { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
@@ -19,5 +22,7 @@ namespace MasterData.Data.Domain
         public string Description { get; set; }
 
         public int? CompanyID { get; set; }
+
+        public int? UserCategoriesID { get; set; }
     }
 }

@@ -1,17 +1,23 @@
-﻿using Autofac;
+﻿using Astra.Facades;
+using Autofac;
 using Autofac.Integration.WebApi;
+using FluentValidation.WebApi;
+using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
+using Microsoft.Owin.Logging;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.OpenIdConnect;
+using Newtonsoft.Json.Serialization;
 using Owin;
+using SubmitProblem.Api.Filters;
+using SubmitProblem.Data;
+using Swashbuckle.Application;
 using System;
+using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.OData.Extensions;
-using Swashbuckle.Application;
-using Newtonsoft.Json.Serialization;
-using SubmitProblem.Data;
-using System.Data.Entity;
-using Astra.Facades;
-using FluentValidation.WebApi;
 
 [assembly: OwinStartup(typeof(SubmitProblem.Api.Startup))]
 
@@ -33,7 +39,38 @@ namespace SubmitProblem.Api
 
             var container = builder.Build();
 
-            var webApiConfiguration = ConfigureWebApi(container);
+            var webApiConfiguration = ConfigureWebApi(container, app);
+
+            // accept access tokens from identityserver and require a scope of 'api1'
+            //app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
+            //{
+            //    Authority = "http://localhost:5000",
+            //    ValidationMode = ValidationMode.ValidationEndpoint,
+            //    RequiredScopes = new[] { "api1" }
+            //});
+
+            //app.SetDefaultSignInAsAuthenticationType(CookieAuthenticationDefaults.AuthenticationType);
+
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions { });
+
+            //app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions {
+            //    ClientId = "",
+            //    ClientSecret = "",
+            //    Authority = "",
+            //    Scope = "openid"
+            //});
+
+            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
+            {
+                Authority = "https://identity.identityserver.io/oauth2/oidcdiscovery/.well-known/openid-configuration",
+                BackchannelHttpHandler = new AccessTokenValidation.Tests.Util.DiscoveryEndpointHandler
+                {
+                    PreAuthenticate = true,
+                    Credentials = new System.Net.NetworkCredential("", "p"),
+                },
+                ValidationMode = ValidationMode.ValidationEndpoint,
+                RequiredScopes = new string[] { "openid" }
+            });
 
             // Use the extension method provided by the WebApi.Owin library:
             app.UseAutofacMiddleware(container);
@@ -49,7 +86,7 @@ namespace SubmitProblem.Api
         {
         }
 
-        private HttpConfiguration ConfigureWebApi(IContainer container)
+        private HttpConfiguration ConfigureWebApi(IContainer container, IAppBuilder app)
         {
 
             var config = new HttpConfiguration();
@@ -68,6 +105,9 @@ namespace SubmitProblem.Api
 
             config.Filters.Add(new ValidateModelStateFilter());
             FluentValidationModelValidatorProvider.Configure(config);
+
+            config.Filters.Add(new HttpGlobalExceptionFilter(app.CreateLogger<Startup>()));
+
 
             config.EnableSwagger(c =>
             {
@@ -101,7 +141,7 @@ namespace SubmitProblem.Api
             {
                 var context = new SubmitProblemContext();
                 return context;
-            }).InstancePerLifetimeScope();
+            }).InstancePerApiRequest();
 
             builder.AddUnitOfWork<SubmitProblemContext>();
 
