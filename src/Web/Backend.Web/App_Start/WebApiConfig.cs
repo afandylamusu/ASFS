@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using Newtonsoft.Json.Serialization;
 using Owin;
 using Swashbuckle.Application;
 using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.OData.Extensions;
 
 namespace Backend.Web
@@ -19,8 +21,14 @@ namespace Backend.Web
 
             var config = GlobalConfiguration.Configuration;
 
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+
             config.MapHttpAttributeRoutes();
             config.AddODataQueryFilter();
+
+            var cors = new EnableCorsAttribute("ai.astra.co.id", "*", "*");
+            config.EnableCors(cors);
 
             config.EnableSwagger(c =>
             {

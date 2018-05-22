@@ -2,10 +2,11 @@
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Backend.Web.Facades;
+using Backend.Web.Models.Forms;
+using FluentValidation;
 using Microsoft.Owin;
 using Owin;
-using System;
-using System.Web;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -58,7 +59,16 @@ namespace Backend.Web
         {
             builder.RegisterModule(new AutofacWebTypesModule());
 
+            builder
+                .RegisterAssemblyTypes(typeof(FeedbackFormValidator).GetTypeInfo().Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
+                .AsImplementedInterfaces();
+
             builder.RegisterType<AlertFacade>().As<IAlertFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<FeedbackFacade>().As<IFeedbackFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<UserGroupAlertFacade>().As<IUserGroupAlertFacade>().InstancePerLifetimeScope();
+
+
         }
     }
 }

@@ -46,7 +46,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.MasterController.FeedbackCreate">
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackCreate(Backend.Web.Models.Forms.FeedbackForm)">
             <summary>
             
             </summary>
@@ -58,7 +58,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.MasterController.FeedbackUpdate(System.Int32)">
+        <member name="M:Backend.Web.Controllers.MasterController.FeedbackUpdate(System.Int32,Backend.Web.Models.Forms.FeedbackForm)">
             <summary>
             
             </summary>
@@ -76,7 +76,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupCreate">
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupCreate(Backend.Web.Models.Forms.UserGroupAlsertForm)">
             <summary>
             
             </summary>
@@ -88,7 +88,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupUpdate(System.Int32)">
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupUpdate(System.Int32,Backend.Web.Models.Forms.UserGroupAlsertForm)">
             <summary>
             
             </summary>

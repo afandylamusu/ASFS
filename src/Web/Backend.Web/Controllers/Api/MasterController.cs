@@ -1,4 +1,6 @@
-﻿using Backend.Web.Models;
+﻿using Backend.Web.Facades;
+using Backend.Web.Models;
+using Backend.Web.Models.Forms;
 using Swashbuckle.Swagger.Annotations;
 using System;
 using System.Linq;
@@ -17,6 +19,15 @@ namespace Backend.Web.Controllers
     [RoutePrefix("api")]
     public partial class MasterController : ApiController
     {
+        private readonly IFeedbackFacade _feedbackFacade;
+        private readonly IUserGroupAlertFacade _userGroupAlertFacade;
+
+        public MasterController(IFeedbackFacade feedbackFacade, IUserGroupAlertFacade userGroupAlertFacade)
+        {
+            _feedbackFacade = feedbackFacade;
+            _userGroupAlertFacade = userGroupAlertFacade;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -39,9 +50,12 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("feedback/create")]
         [HttpPost]
-        public async Task<IHttpActionResult> FeedbackCreate()
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GenericResponse))]
+        public async Task<IHttpActionResult> FeedbackCreate([FromBody] FeedbackForm form)
         {
-            return await Task.FromResult(Ok());
+            var result = await _feedbackFacade.CreateFeedback(form);
+            var response = new GenericResponse() { Success = result };
+            return Ok(response);
         }
 
         /// <summary>
@@ -61,7 +75,7 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("feedback/{id:int}/update")]
         [HttpPost]
-        public async Task<IHttpActionResult> FeedbackUpdate(int id)
+        public async Task<IHttpActionResult> FeedbackUpdate(int id, [FromBody] FeedbackForm form)
         {
             return await Task.FromResult(Ok());
         }
@@ -96,9 +110,9 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("alert-group/create")]
         [HttpPost]
-        public async Task<IHttpActionResult> AlertGroupCreate()
+        public async Task<IHttpActionResult> AlertGroupCreate([FromBody] UserGroupAlsertForm form)
         {
-            return await Task.FromResult(Ok());
+            return Ok(await _userGroupAlertFacade.CreateUserGroup(form));
         }
 
         /// <summary>
@@ -118,7 +132,7 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("alert-group/{id:int}/update")]
         [HttpPost]
-        public async Task<IHttpActionResult> AlertGroupUpdate(int id)
+        public async Task<IHttpActionResult> AlertGroupUpdate(int id, [FromBody] UserGroupAlsertForm form)
         {
             return await Task.FromResult(Ok());
         }

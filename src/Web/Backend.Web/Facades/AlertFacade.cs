@@ -52,7 +52,7 @@ namespace Backend.Web.Facades
                 EndDate = DateTime.Now,
                 Content = "Sample content",
                 Recepients = new NewsDto.Recepient[]{
-                    new NewsDto.Recepient { Id = id+1, Alias ="sample", EmailAddress="sample@local.com" }
+                    new NewsDto.Recepient { Id = id+1, Alias ="sample", Type = (id % 5) == 0 ? "GROUP" : "INDIVIDUAL" }
                 }
             };
         }

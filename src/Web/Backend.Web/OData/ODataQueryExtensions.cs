@@ -22,6 +22,12 @@ namespace System.Web.Http.OData
         /// <returns></returns>
         internal static IQueryable<T> ApplyOData<T>(this IQueryable<T> query, ODataQueryOptions options, out long count)
         {
+            ODataQuerySettings settings = new ODataQuerySettings()
+            {
+                PageSize = 25
+            };
+
+
             var validationSettings = new ODataValidationSettings()
             {
                 // Initialize settings as needed.
@@ -32,7 +38,7 @@ namespace System.Web.Http.OData
 
             count = query.LongCount();
 
-            return options.ApplyTo(query) as IQueryable<T>;
+            return options.ApplyTo(query, settings) as IQueryable<T>;
         }
 
 

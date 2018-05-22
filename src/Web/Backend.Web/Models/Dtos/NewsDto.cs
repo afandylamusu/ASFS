@@ -11,7 +11,7 @@ namespace Backend.Web.Models.Dtos
         {
             public int Id { get; set; }
             public string Alias { get; set; }
-            public string EmailAddress { get; set; }
+            public string Type { get; set; }
         }
 
         public int Id { get; internal set; }
