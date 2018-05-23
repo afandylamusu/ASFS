@@ -64,10 +64,12 @@ namespace Backend.Web
                 .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
                 .AsImplementedInterfaces();
 
+            builder.RegisterType<ProfileFacade>().As<IProfileFacade>().InstancePerLifetimeScope();
             builder.RegisterType<AlertFacade>().As<IAlertFacade>().InstancePerLifetimeScope();
             builder.RegisterType<FeedbackFacade>().As<IFeedbackFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<ReportFacade>().As<IReportFacade>().InstancePerLifetimeScope();
             builder.RegisterType<UserGroupAlertFacade>().As<IUserGroupAlertFacade>().InstancePerLifetimeScope();
-
+            builder.RegisterType<MasterFacade>().As<IMasterFacade>().InstancePerLifetimeScope();
 
         }
     }

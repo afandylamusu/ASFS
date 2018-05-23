@@ -23,7 +23,7 @@ namespace Backend.Web.Facades
     public class AlertFacade : IAlertFacade
     {
         private readonly HttpContextBase _HttpContext;
-        private Random _intRamdom;
+        private readonly Random _intRamdom;
 
         public AlertFacade(HttpContextBase httpContext )
         {
@@ -52,7 +52,7 @@ namespace Backend.Web.Facades
                 EndDate = DateTime.Now,
                 Content = "Sample content",
                 Recepients = new NewsDto.Recepient[]{
-                    new NewsDto.Recepient { Id = id+1, Alias ="sample", Type = (id % 5) == 0 ? "GROUP" : "INDIVIDUAL" }
+                    new NewsDto.Recepient { Id = id+1, Alias ="sample "+(id+1), Type = (id % 5) == 0 ? "GROUP" : "INDIVIDUAL" }
                 }
             };
         }

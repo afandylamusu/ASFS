@@ -1,14 +1,13 @@
 ﻿using Backend.Web.Facades;
 using Backend.Web.Models;
+using Backend.Web.Models.Dtos;
 using Backend.Web.Models.Forms;
 using Swashbuckle.Swagger.Annotations;
-using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData;
-using System.Web.Http.OData.Extensions;
 using System.Web.Http.OData.Query;
 
 namespace Backend.Web.Controllers
@@ -21,11 +20,13 @@ namespace Backend.Web.Controllers
     {
         private readonly IFeedbackFacade _feedbackFacade;
         private readonly IUserGroupAlertFacade _userGroupAlertFacade;
+        private readonly IMasterFacade _masterFacade;
 
-        public MasterController(IFeedbackFacade feedbackFacade, IUserGroupAlertFacade userGroupAlertFacade)
+        public MasterController(IFeedbackFacade feedbackFacade, IUserGroupAlertFacade userGroupAlertFacade, IMasterFacade masterFacade)
         {
             _feedbackFacade = feedbackFacade;
             _userGroupAlertFacade = userGroupAlertFacade;
+            _masterFacade = masterFacade;
         }
 
         /// <summary>
@@ -34,14 +35,11 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("feedback/list")]
         [HttpPost]
-        [SwaggerResponse(HttpStatusCode.OK, type: typeof(GenericPageResult<int>))]
-        public async Task<GenericPageResult<int>> FeedbackList(ODataQueryOptions options)
+        [SwaggerResponse(HttpStatusCode.OK, type: typeof(GenericPageResult<FeedbackDto>))]
+        public async Task<GenericPageResult<FeedbackDto>> FeedbackList(ODataQueryOptions options)
         {
-            var data = new int[] { 1, 3, 4, 5, 2 };
-
-            var result = data.AsQueryable().ApplyOData(options, out long count);
-
-            return await Task.FromResult(this.ToPageResult<int>(result, count));
+            var result = _feedbackFacade.GetFeedbacks(options, out long count);
+            return await Task.FromResult(this.ToPageResult(result, count));
         }
 
         /// <summary>
@@ -53,7 +51,7 @@ namespace Backend.Web.Controllers
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GenericResponse))]
         public async Task<IHttpActionResult> FeedbackCreate([FromBody] FeedbackForm form)
         {
-            var result = await _feedbackFacade.CreateFeedback(form);
+            var result = await _feedbackFacade.CreateFeedbackAsync(form);
             var response = new GenericResponse() { Success = result };
             return Ok(response);
         }
@@ -98,10 +96,11 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("alert-group/list")]
         [HttpPost]
-        [SwaggerResponse(HttpStatusCode.OK, type: typeof(GenericPageResult<int>))]
-        public async Task<IHttpActionResult> AlertGroupList()
+        [SwaggerResponse(HttpStatusCode.OK, type: typeof(GenericPageResult<UserGroupAlertDto>))]
+        public async Task<GenericPageResult<UserGroupAlertDto>> AlertGroupList(ODataQueryOptions options)
         {
-            return await Task.FromResult(Ok());
+            var result = _userGroupAlertFacade.GetUserGroups(options, out long count);
+            return await Task.FromResult(this.ToPageResult(result, count));
         }
 
         /// <summary>
@@ -110,9 +109,11 @@ namespace Backend.Web.Controllers
         /// <returns></returns>
         [Route("alert-group/create")]
         [HttpPost]
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(GenericResponse))]
         public async Task<IHttpActionResult> AlertGroupCreate([FromBody] UserGroupAlsertForm form)
         {
-            return Ok(await _userGroupAlertFacade.CreateUserGroup(form));
+            var result = await _userGroupAlertFacade.CreateUserGroupAsync(form);
+            return Ok(new GenericResponse<int>() { Data = result, Success = true });
         }
 
         /// <summary>
@@ -146,6 +147,19 @@ namespace Backend.Web.Controllers
         public async Task<IHttpActionResult> AlertGroupDelete(int id)
         {
             return await Task.FromResult(Ok());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Route("application/list")]
+        [HttpPost]
+        [SwaggerResponse(HttpStatusCode.OK, type: typeof(GenericPageResult<ApplicationDto>))]
+        public async Task<GenericPageResult<ApplicationDto>> ApplicationList(ODataQueryOptions options)
+        {
+            var result = _masterFacade.GetApplications(options, out long count);
+            return await Task.FromResult(this.ToPageResult(result, count));
         }
     }
 }

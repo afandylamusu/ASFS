@@ -25,15 +25,39 @@
             
             </summary>
         </member>
-        <member name="M:Backend.Web.Controllers.ProfilesController.#ctor">
+        <member name="M:Backend.Web.Controllers.ProfilesController.#ctor(Backend.Web.Facades.IProfileFacade)">
             <summary>
             
             </summary>
+        </member>
+        <member name="M:Backend.Web.Controllers.ProfilesController.ListFS(System.Web.Http.OData.Query.ODataQueryOptions)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Backend.Web.Controllers.ReportsController">
             <summary>
             
             </summary>
+        </member>
+        <member name="M:Backend.Web.Controllers.ReportsController.TicketStatusReportItems(System.Web.Http.OData.Query.ODataQueryOptions)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.ReportsController.TicketStatusReportItemsPrint(System.Int32[],System.Boolean)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.ReportsController.UserFeedbackReportItems(System.Web.Http.OData.Query.ODataQueryOptions)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Backend.Web.Controllers.MasterController">
             <summary>
@@ -70,7 +94,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupList">
+        <member name="M:Backend.Web.Controllers.MasterController.AlertGroupList(System.Web.Http.OData.Query.ODataQueryOptions)">
             <summary>
             
             </summary>
@@ -95,6 +119,12 @@
             <returns></returns>
         </member>
         <member name="M:Backend.Web.Controllers.MasterController.AlertGroupDelete(System.Int32)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.Web.Controllers.MasterController.ApplicationList(System.Web.Http.OData.Query.ODataQueryOptions)">
             <summary>
             
             </summary>

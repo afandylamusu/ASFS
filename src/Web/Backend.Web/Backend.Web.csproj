@@ -221,12 +221,32 @@
     <Compile Include="Controllers\Api\ReportsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\MasterController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Facades\AlertFacade.cs" />
     <Compile Include="Facades\FeedbackFacade.cs" />
+    <Compile Include="Facades\MasterFacade.cs" />
+    <Compile Include="Facades\ProfileFacade.cs" />
+    <Compile Include="Facades\ReportFacade.cs" />
     <Compile Include="Facades\UserGroupAlertFacade.cs" />
+    <Compile Include="Http\FileContentResponse.cs" />
     <Compile Include="Models\Dtos\AlertGroupDto.cs" />
+    <Compile Include="Models\Dtos\ApplicationDto.cs" />
+    <Compile Include="Models\Dtos\FeedbackDto.cs" />
     <Compile Include="Models\Dtos\NewsDto.cs" />
+    <Compile Include="Models\Dtos\ProfileDto.cs" />
     <Compile Include="Models\Dtos\ReportDto.cs" />
+    <Compile Include="Models\Dtos\TicketStatusReportItemDto.cs" />
+    <Compile Include="Models\Entities\MFSAdditionalRating.cs" />
+    <Compile Include="Models\Entities\MFSAlert.cs" />
+    <Compile Include="Models\Entities\MFSAlertGroup.cs" />
+    <Compile Include="Models\Entities\MFSAlertGroupUser.cs" />
+    <Compile Include="Models\Entities\MFSComplaintFeedbackAdditionalRating.cs" />
+    <Compile Include="Models\Entities\MFSGoogleToken.cs" />
+    <Compile Include="Models\Entities\MFSPICLocation.cs" />
+    <Compile Include="Models\Entities\MFSUserCategory.cs" />
+    <Compile Include="Models\Entities\MFSUserCategoryGroup.cs" />
+    <Compile Include="Models\Entities\MFSUserNonAD.cs" />
+    <Compile Include="Models\MobileFS.cs" />
     <Compile Include="Models\Forms\FeedbackForm.cs" />
     <Compile Include="Models\Forms\UserGroupAlsertForm.cs" />
     <Compile Include="Models\GenericResponse.cs" />
@@ -234,6 +254,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

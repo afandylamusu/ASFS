@@ -27,7 +27,7 @@ namespace Backend.Web
             config.MapHttpAttributeRoutes();
             config.AddODataQueryFilter();
 
-            var cors = new EnableCorsAttribute("ai.astra.co.id", "*", "*");
+            var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
             config.EnableSwagger(c =>
