@@ -1,5 +1,6 @@
 ﻿using Backend.Web.Facades;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Web.Mvc;
@@ -20,9 +21,12 @@ namespace Backend.Web.Controllers
         // GET: Report
         [HttpPost]
         [ActionName("print-ticket-status")]
-        public ActionResult PrintReportTicketStatus(int[] ids, bool exclude = false)
+        public ActionResult PrintReportTicketStatus(IList<int> ids, bool exclude = false)
         {
-            var result = _reportFacade.GetTicketStatusReport(new int[] { 1, 12 });
+            if (ids == null || ids.Count == 0)
+                return HttpNotFound();
+
+            var result = _reportFacade.GetTicketStatusReport(ids);
             string xml = string.Empty;
             XmlDocument xmlDoc = new XmlDocument();
 

@@ -39,6 +39,17 @@ namespace Backend.Web.Controllers
             return await Task.FromResult(this.ToPageResult(result, count));
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Route("recipients")]
+        [HttpPost]
+        [SwaggerResponse(System.Net.HttpStatusCode.OK, Type = typeof(GenericPageResult<RecipientDto>))]
+        public async Task<GenericPageResult<RecipientDto>> AlertRecipients(ODataQueryOptions options)
+        {
+            var result = _alertFacade.GetRecipients(options, out long count);
+            return await Task.FromResult(this.ToPageResult(result, count));
+        }
     }
 }

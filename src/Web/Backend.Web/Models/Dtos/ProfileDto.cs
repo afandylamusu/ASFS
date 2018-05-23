@@ -7,8 +7,12 @@ namespace Backend.Web.Models.Dtos
 {
     public class ProfileDto
     {
-        public string Name { get; internal set; }
-        public int Id { get; internal set; }
-        public string EmailAddress { get; internal set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Username { get; set; }
+        public string Phone { get; set; }
+        public decimal Lat { get; set; }
+        public decimal Lng { get; set; }
     }
 }

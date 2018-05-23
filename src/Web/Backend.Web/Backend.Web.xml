@@ -20,6 +20,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Backend.Web.Controllers.AlertsController.AlertRecipients(System.Web.Http.OData.Query.ODataQueryOptions)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Backend.Web.Controllers.ProfilesController">
             <summary>
             

@@ -12,7 +12,7 @@ namespace Backend.Web.Facades
     {
         IQueryable<TicketStatusReportItemDto> GetTicketStatusReport(ODataQueryOptions options, out long count);
         IQueryable<UserFeedbackReportItemDto> GetUserFeedbackReport(ODataQueryOptions options, out long count);
-        IEnumerable<TicketStatusReportItemDto> GetTicketStatusReport(int[] ids);
+        IEnumerable<TicketStatusReportItemDto> GetTicketStatusReport(IEnumerable<int> ids);
     }
 
     public class ReportFacade : IReportFacade
@@ -86,7 +86,7 @@ namespace Backend.Web.Facades
             };
         }
 
-        public IEnumerable<TicketStatusReportItemDto> GetTicketStatusReport(int[] ids)
+        public IEnumerable<TicketStatusReportItemDto> GetTicketStatusReport(IEnumerable<int> ids)
         {
             var data = new List<TicketStatusReportItemDto>();
 

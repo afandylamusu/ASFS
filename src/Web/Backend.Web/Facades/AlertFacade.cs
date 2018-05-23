@@ -15,6 +15,7 @@ namespace Backend.Web.Facades
     public interface IAlertFacade
     {
         IQueryable<NewsDto> Find(ODataQueryOptions options, out long count);
+        IQueryable<RecipientDto> GetRecipients(ODataQueryOptions options, out long count);
     }
 
     /// <summary>
@@ -41,6 +42,20 @@ namespace Backend.Web.Facades
             return data.AsQueryable().ApplyOData(options, out count);
         }
 
+        public IQueryable<RecipientDto> GetRecipients(ODataQueryOptions options, out long count)
+        {
+            var data = new List<RecipientDto>();
+
+            for (int i = 0; i < 50; i++)
+            {
+                int id = _intRamdom.Next(1, 100000);
+
+                data.Add(new RecipientDto { Id = id + 1, Alias = "Sample Recipient " + (id + 1), Type = (id % 5) == 0 ? "GROUP" : "INDIVIDUAL" });
+            }
+
+            return data.AsQueryable().ApplyOData(options, out count);
+        }
+
         private NewsDto NewsDummy()
         {
             int id = _intRamdom.Next(1, 100000);
@@ -51,8 +66,8 @@ namespace Backend.Web.Facades
                 StartDate = DateTime.Now.Subtract(TimeSpan.FromDays(3)),
                 EndDate = DateTime.Now,
                 Content = "Sample content",
-                Recepients = new NewsDto.Recepient[]{
-                    new NewsDto.Recepient { Id = id+1, Alias ="sample "+(id+1), Type = (id % 5) == 0 ? "GROUP" : "INDIVIDUAL" }
+                Recepients = new RecipientDto[]{
+                    new RecipientDto { Id = id+1, Alias ="sample "+(id+1), Type = (id % 5) == 0 ? "GROUP" : "INDIVIDUAL" }
                 }
             };
         }

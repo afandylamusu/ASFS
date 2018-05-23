@@ -42,7 +42,11 @@ namespace Backend.Web.Facades
             {
                 Id = id,
                 Name = name,
-                EmailAddress = name + "@ai.astra.co.id"
+                Email = name + "@ai.astra.co.id",
+                Username = name,
+                Lat = -6.230612M,
+                Lng = 106.804332M,
+                Phone = "081245" + Util.GenTicketNumber(6)
             };
         }
     }
