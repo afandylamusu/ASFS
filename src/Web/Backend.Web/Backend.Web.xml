@@ -47,12 +47,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.ReportsController.TicketStatusReportItemsPrint(System.Int32[],System.Boolean)">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Backend.Web.Controllers.ReportsController.UserFeedbackReportItems(System.Web.Http.OData.Query.ODataQueryOptions)">
             <summary>
             

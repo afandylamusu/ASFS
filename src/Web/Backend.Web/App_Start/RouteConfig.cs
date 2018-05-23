@@ -18,6 +18,12 @@ namespace Backend.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller="Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ReportTicketStatusPrint",
+                url: "api/report/ticket-status/print",
+                defaults: new { controller = "Report", action = "print-ticket-status", id = UrlParameter.Optional }
+            );
         }
     }
 }

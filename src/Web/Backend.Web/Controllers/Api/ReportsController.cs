@@ -37,17 +37,17 @@ namespace Backend.Web.Controllers
             return await Task.FromResult(this.ToPageResult(result, count));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Route("ticket-status/print")]
-        [HttpPost]
-        public async Task<IHttpActionResult> TicketStatusReportItemsPrint([FromBody] int[] ids, bool exclude = false)
-        {
-            var result = _reportFacade.GetTicketStatusReport(ids);
-            return Content(HttpStatusCode.Accepted, string.Empty);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //[Route("ticket-status/print")]
+        //[HttpPost]
+        //public async Task<IHttpActionResult> TicketStatusReportItemsPrint([FromBody] int[] ids, bool exclude = false)
+        //{
+        //    var result = _reportFacade.GetTicketStatusReport(ids);
+        //    return Content(HttpStatusCode.Accepted, string.Empty);
+        //}
 
         /// <summary>
         /// 

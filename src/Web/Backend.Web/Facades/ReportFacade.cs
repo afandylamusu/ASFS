@@ -88,7 +88,12 @@ namespace Backend.Web.Facades
 
         public IEnumerable<TicketStatusReportItemDto> GetTicketStatusReport(int[] ids)
         {
-            throw new NotImplementedException();
+            var data = new List<TicketStatusReportItemDto>();
+
+            for (int i = 0; i < 30; i++)
+                data.Add(GenTicketStatusReportItem());
+
+            return data;
         }
     }
 }

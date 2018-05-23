@@ -32,9 +32,16 @@ namespace Backend.Web
 
             RegisterServices(builder);
 
-            builder.RegisterControllers(typeof(Startup).Assembly);
+            builder.RegisterControllers(typeof(Startup).Assembly).PropertiesAutowired();
 
-            WebApiConfig.Register(app, builder);
+            // Register your Web API controllers.
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterAssemblyModules(Assembly.GetExecutingAssembly());
+
+
+            var config = new HttpConfiguration();
+            WebApiConfig.Register(config);
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -43,16 +50,18 @@ namespace Backend.Web
             var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            GlobalConfiguration.Configuration.EnsureInitialized();
+
+
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            config.EnsureInitialized();
 
             // Register the Autofac middleware FIRST, then the Autofac MVC middleware.
             app.UseAutofacMiddleware(container);
-
-            app.UseAutofacWebApi(GlobalConfiguration.Configuration);
-            app.UseWebApi(GlobalConfiguration.Configuration);
-
             app.UseAutofacMvc();
+
+            app.UseAutofacWebApi(config);
+            app.UseWebApi(config);
+
         }
 
         private void RegisterServices(ContainerBuilder builder)

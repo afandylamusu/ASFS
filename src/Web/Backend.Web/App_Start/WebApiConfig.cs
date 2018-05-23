@@ -12,14 +12,11 @@ namespace Backend.Web
 {
     internal class WebApiConfig
     {
-        internal static void Register(IAppBuilder app, ContainerBuilder builder)
+        internal static void Register(HttpConfiguration config)
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
 
-            // Register your Web API controllers.
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
-            var config = GlobalConfiguration.Configuration;
+            //var config = GlobalConfiguration.Configuration;
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;

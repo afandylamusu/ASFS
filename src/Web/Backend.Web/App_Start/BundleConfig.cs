@@ -27,7 +27,7 @@ namespace Backend.Web
                       "~/Content/site.css",
                       "~/Content/bootstrap-responsive.css"));
 
-            BundleTable.EnableOptimizations = false;
+            //BundleTable.EnableOptimizations = true;
         }
     }
 }
