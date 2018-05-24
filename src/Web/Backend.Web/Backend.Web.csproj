@@ -227,6 +227,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Api\MasterController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="App_Start\DependencyConfig.cs" />
     <Compile Include="Facades\AlertFacade.cs" />
     <Compile Include="Facades\FeedbackFacade.cs" />
     <Compile Include="Facades\MasterFacade.cs" />
