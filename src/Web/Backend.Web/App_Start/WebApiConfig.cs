@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
+using Backend.Web.Http;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using Swashbuckle.Application;
@@ -20,6 +21,8 @@ namespace Backend.Web
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
+
+            config.Filters.Add(new ExceptionFilter());
 
             config.MapHttpAttributeRoutes();
             config.AddODataQueryFilter();

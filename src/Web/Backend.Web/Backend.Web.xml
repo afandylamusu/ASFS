@@ -20,7 +20,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.Web.Controllers.AlertsController.AlertRecipients(System.Web.Http.OData.Query.ODataQueryOptions)">
+        <member name="M:Backend.Web.Controllers.AlertsController.AlertRecipients(System.String,System.Web.Http.OData.Query.ODataQueryOptions)">
             <summary>
             
             </summary>

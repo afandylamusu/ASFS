@@ -5,7 +5,6 @@ using Swashbuckle.Swagger.Annotations;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData;
-using System.Web.Http.OData.Extensions;
 using System.Web.Http.OData.Query;
 
 namespace Backend.Web.Controllers
@@ -46,7 +45,7 @@ namespace Backend.Web.Controllers
         [Route("recipients")]
         [HttpPost]
         [SwaggerResponse(System.Net.HttpStatusCode.OK, Type = typeof(GenericPageResult<RecipientDto>))]
-        public async Task<GenericPageResult<RecipientDto>> AlertRecipients(ODataQueryOptions options)
+        public async Task<GenericPageResult<RecipientDto>> AlertRecipients(string keyword, ODataQueryOptions options)
         {
             var result = _alertFacade.GetRecipients(options, out long count);
             return await Task.FromResult(this.ToPageResult(result, count));
