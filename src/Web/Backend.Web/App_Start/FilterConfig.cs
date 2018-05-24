@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Backend.Web.Http;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Backend.Web
@@ -8,6 +9,7 @@ namespace Backend.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new BackendExceptionFilter());
         }
     }
 }

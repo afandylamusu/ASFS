@@ -233,7 +233,7 @@
     <Compile Include="Facades\ProfileFacade.cs" />
     <Compile Include="Facades\ReportFacade.cs" />
     <Compile Include="Facades\UserGroupAlertFacade.cs" />
-    <Compile Include="Http\ExceptionFilter.cs" />
+    <Compile Include="Http\BackendExceptionFilter.cs" />
     <Compile Include="Http\FileContentResponse.cs" />
     <Compile Include="Models\Dtos\AlertGroupDto.cs" />
     <Compile Include="Models\Dtos\ApplicationDto.cs" />

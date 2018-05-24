@@ -22,7 +22,7 @@ namespace Backend.Web
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
-            config.Filters.Add(new ExceptionFilter());
+            config.Filters.Add(new BackendExceptionFilter());
 
             config.MapHttpAttributeRoutes();
             config.AddODataQueryFilter();

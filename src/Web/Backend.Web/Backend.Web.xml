@@ -140,6 +140,14 @@
             
             </summary>
         </member>
+        <member name="M:Backend.Web.Http.BackendExceptionFilter.OnExceptionAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
+            <summary>
+            Web Api Exception Handler
+            </summary>
+            <param name="actionExecutedContext"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.Web.Startup">
             <summary>
             

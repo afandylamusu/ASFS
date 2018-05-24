@@ -18,6 +18,11 @@ namespace Backend.Web.Controllers
             _reportFacade = reportFacade;
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: Report
         [HttpPost]
         [ActionName("print-ticket-status")]
