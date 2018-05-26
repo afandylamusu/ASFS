@@ -1,8 +1,0 @@
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\bin\Backend.Web.xml
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\bin\Astra.MobileFS.WebAdmin.dll.config
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\bin\Astra.MobileFS.WebAdmin.dll
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\bin\Astra.MobileFS.WebAdmin.pdb
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\obj\Debug\Astra.MobileFS.WebAdmin.csproj.CoreCompileInputs.cache
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\obj\Debug\Astra.MobileFS.WebAdmin.csproj.CopyComplete
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\obj\Debug\Astra.MobileFS.WebAdmin.dll
-I:\works\moonlay\Astra.FieldSupport\Astra.MobileFS.WebAdmin\obj\Debug\Astra.MobileFS.WebAdmin.pdb
