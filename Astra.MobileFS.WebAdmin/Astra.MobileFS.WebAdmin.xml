@@ -140,6 +140,17 @@
             
             </summary>
         </member>
+        <member name="T:Astra.MobileFS.WebAdmin.Http.BackendExceptionFilter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Astra.MobileFS.WebAdmin.Http.BackendExceptionFilter.OnException(System.Web.Mvc.ExceptionContext)">
+            <summary>
+            
+            </summary>
+            <param name="filterContext"></param>
+        </member>
         <member name="M:Astra.MobileFS.WebAdmin.Http.BackendExceptionFilter.OnExceptionAsync(System.Web.Http.Filters.HttpActionExecutedContext,System.Threading.CancellationToken)">
             <summary>
             Web Api Exception Handler

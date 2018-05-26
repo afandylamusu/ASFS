@@ -5,8 +5,15 @@ using System.Web.Mvc;
 
 namespace Astra.MobileFS.WebAdmin.Http
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class BackendExceptionFilter : System.Web.Http.Filters.ExceptionFilterAttribute, System.Web.Mvc.IExceptionFilter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterContext"></param>
         public void OnException(ExceptionContext filterContext)
         {
             

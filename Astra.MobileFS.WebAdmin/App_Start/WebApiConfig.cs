@@ -1,10 +1,6 @@
-﻿using Autofac;
-using Autofac.Integration.WebApi;
-using Astra.MobileFS.WebAdmin.Http;
+﻿using Astra.MobileFS.WebAdmin.Http;
 using Newtonsoft.Json.Serialization;
-using Owin;
 using Swashbuckle.Application;
-using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.OData.Extensions;
@@ -16,8 +12,6 @@ namespace Astra.MobileFS.WebAdmin
         internal static void Register(HttpConfiguration config)
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
-
-            //var config = GlobalConfiguration.Configuration;
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
